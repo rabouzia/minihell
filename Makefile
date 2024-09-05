@@ -4,7 +4,7 @@ SRC	     =		src/main.c	\
 
 CC       =	    cc
 
-CFLAGS   =	    -Wall -Wextra -Werror -g3 -I./inc -lreadline
+CFLAGS   =	    -Wall -Wextra -Werror -g3 -I./inc 
 
 OBJ_DIR	 =	    obj/
 
@@ -19,7 +19,7 @@ SMAKE	 =      make --no-print-directory
 all:	        $(NAME)
 
 $(NAME):        $(OBJ)
-				@$(CC) $(CFLAGS) $(OBJ) -o $@ -pthread
+				@$(CC) $(CFLAGS) $(OBJ) -o $@ -lreadline
 				
 $(OBJ_DIR)%.o:  src/%.c
 			    @mkdir -p $(OBJ_DIR)
