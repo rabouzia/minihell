@@ -1,10 +1,10 @@
 NAME     =		minihell
 
-SRC	     =		src/main.c		\
+SRC	     =		src/main.c	\
 
 CC       =	    cc
 
-CFLAGS   =	    -Wall -Wextra -Werror -g3 -I./inc
+CFLAGS   =	    -Wall -Wextra -Werror -g3 -I./inc -lreadline
 
 OBJ_DIR	 =	    obj/
 
@@ -27,11 +27,11 @@ $(OBJ_DIR)%.o:  src/%.c
 
 clean:
 				@rm -rf $(OBJ_DIR)
-				@echo "\033[1;31m======== philo object files removed ========\033[0m"
+				@echo "\033[1;31m======== object files removed ========\033[0m"
 
 fclean:         clean
 				@$(RM) $(NAME)
-				@echo "\033[1;31m======= philo executable removed =======\033[0m"
+				@echo "\033[1;31m========  executable removed  =======\033[0m"
 
 re:             fclean
 				@$(SMAKE)
