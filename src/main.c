@@ -6,7 +6,7 @@
 /*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/09/05 17:48:45 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/09/05 20:12:49 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **env)
 
 	while (1)
 	{
-		input = readline("minihell$> ");
+		input = readline("🔥$> ");
 		if (!input)
 			break ;
 		if (!*input)

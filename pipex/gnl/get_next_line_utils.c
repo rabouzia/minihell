@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:54:36 by rabouzia          #+#    #+#             */
-/*   Updated: 2023/12/19 16:25:28 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:10:25 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,13 @@ int	ft_strlen(char *str)
 void	*ft_memchr(const char *str, int c)
 {
 	unsigned char	*res;
-	int				i;
 
-	i = 0;
 	res = (unsigned char *)str;
 	while (*res)
 	{
 		if (*res == (unsigned char)c)
 			return (res);
 		res++;
-		i++;
 	}
 	return (NULL);
 }
