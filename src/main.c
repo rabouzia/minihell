@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **env)
 
 	while (1)
 	{
-		input = readline("minihell$> ");
+		input = readline("👁️ ");
 		if (!input)
 			break ;
 		if (!*input)
