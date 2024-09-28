@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/09/28 18:59:56 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/29 01:02:03 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,18 @@ typedef struct s_minishell
 {
 	t_token *token;
 }	t_minishell;
+
+// ############# exec    #############
+
+// ############# parsing #############
+
+int 	parsing(char *input, t_minishell *minishell);
+
+bool 	tokenization(char *input, t_minishell *minishell);
+
+bool 	syntax_analysis(t_minishell *minishell);
+
+// ############# expand  #############
+
 
 #endif

@@ -1,6 +1,16 @@
 NAME     =		minihell
 
-SRC	     =		src/main.c	\
+SRC	     =		src/main.c							\
+				src/parsing/parsing.c     			\
+				src/parsing/syntax_analysis.c		\
+				src/parsing/tidying.c				\
+				src/parsing/tokenization.c			\
+				src/parsing/tokenization_utils.c	\
+				src/exec/exec.c						\
+				src/expand/expand.c				\
+				
+
+
 
 CC       =	    cc
 
