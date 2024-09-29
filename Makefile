@@ -1,6 +1,6 @@
 NAME     =		minihell
 
-DIR 	 =      src/ 
+DIR 	 =      src/
 
 SRC	     =		src/main.c							\
 				src/parsing/parsing.c     			\
@@ -11,9 +11,13 @@ SRC	     =		src/main.c							\
 				src/exec/exec.c						\
 				src/expand/expand.c					\
 				src/lib/char.c						\
+				src/lib/command.c					\
 				src/lib/debug.c						\
+				src/lib/redir.c						\
 				src/lib/string.c					\
+				src/lib/tab.c						\
 				src/lib/token.c						\
+
 
 CC       =	    cc
 
@@ -30,18 +34,15 @@ MAKE_DIR =      mkdir -p
 
 SMAKE	 =      make --no-print-directory
 
-# Automatically create necessary subdirectories
-DIRS 	 = 		$(sort $(dir $(OBJ)))
+# Ensure all directories are created before compiling object files
+$(OBJ_DIR)%.o:  src/%.c
+				@$(MAKE_DIR) $(dir $@)
+				@$(CC) $(CFLAGS) -c $< -o $@
 
 all:	        $(NAME)
 
 $(NAME):        $(OBJ)
 				@$(CC) $(CFLAGS) $(OBJ) -o $@ -lreadline
-				
-# Ensure all directories are created before compiling object files
-$(OBJ_DIR)%.o:  src/%.c
-				@$(MAKE_DIR) $(DIRS)
-			    @$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
 				@rm -rf $(OBJ_DIR)
@@ -51,7 +52,7 @@ fclean:         clean
 				@$(RM) $(NAME)
 				@echo "\033[1;31m========  executable removed  =======\033[0m"
 
-re:             fclean
-				@$(SMAKE)
+re:             fclean all
 
 .PHONY: clean fclean all re
+

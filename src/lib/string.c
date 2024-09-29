@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:50:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/29 18:26:38 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:08:29 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,34 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	if (i == n)
 		return (0);
 	return (s1[i] - s2[i]);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+char	*ft_strdup(char *str)
+{
+	char	*res;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	res = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = 0;
+	return (res);
 }

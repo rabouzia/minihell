@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:46:32 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/29 18:46:17 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:11:24 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,11 @@ bool	add_word(char *input, int *i, t_minishell *minishell)
 		str[j] = 0;
 	}
 	else
+	{
 		while (input[*i] && !is_not_word(input[*i]))
 			str[j++] = input[(*i)++];
+		str[j] = 0;
+	}
 	new = ft_tokennew(str, WORD);
 	if (!new)
 		return (free(str), 0);
