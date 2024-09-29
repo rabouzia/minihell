@@ -6,36 +6,36 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:22:13 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/28 19:45:54 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:23:13 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool is_space(char c)
+bool	is_space(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
 }
 
-bool skip_spaces(char *input, int *i)
+bool	skip_spaces(char *input, int *i)
 {
 	while (is_space(input[*i]))
 		(*i)++;
 	return (input[*i] == 0);
 }
 
-bool tokenization(char *input, t_minishell *minishell)
+bool	tokenization(char *input, t_minishell *minishell)
 {
-	int i;
-	bool success;
-	
+	int		i;
+	bool	success;
+
 	i = 0;
-	while (0[input + i++]) // hihi
+	while (0[input + i]) // hihi
 	{
 		if (skip_spaces(input, &i))
 			break ;
 		if (input[i] == '|')
-			success = add_pipe(input, &i, minishell);
+			success = add_pipe(&i, minishell);
 		else if (!ft_strncmp(input + i, ">>", 2))
 			success = add_redir_double(input, &i, minishell);
 		else if (!ft_strncmp(input + i, "<<", 2))
@@ -48,7 +48,7 @@ bool tokenization(char *input, t_minishell *minishell)
 			success = add_word(input, &i, minishell);
 		if (!success)
 			return (0);
+		printf("%c\n", input[i]);
 	}
 	return (1);
 }
-
