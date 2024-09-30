@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   debug2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 21:09:01 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/30 20:15:30 by rabouzia         ###   ########.fr       */
+/*   Created: 2024/09/30 19:09:57 by rabouzia          #+#    #+#             */
+/*   Updated: 2024/09/30 19:19:22 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-int get_expanded_len(char *str, char quote)
+void print_env(t_env *env)
 {
-	int len;
-	int i;
-
-	len = 0;
-	i = 0;
-	while (str[i])
+	while(env)
 	{
-		
-		len++;
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
 	}
 }
-
-char	*expand(char *str, t_minishell *minishell)
-{
-	(void)minishell;
-	return (ft_strdup(str));
-}
-
-
-//  fsdfd'df  s$sdfsd'"sdf$HOME$USER"vg

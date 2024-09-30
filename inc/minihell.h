@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/09/29 21:31:45 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:18:01 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <termios.h>
 # include <unistd.h>
 
+// token
+
 typedef enum e_token_type
 {
 	WORD,
@@ -40,6 +42,8 @@ typedef struct s_token
 	t_token_type		type;
 	struct s_token		*next;
 }						t_token;
+
+// command
 
 typedef enum e_redir_type
 {
@@ -63,8 +67,20 @@ typedef struct s_command
 	struct s_command	*next;
 }						t_command;
 
+// env
+
+typedef struct s_env
+{
+	char				*key;
+	char				*value;
+	struct s_env		*next;
+}						t_env;
+
+// minishell
+
 typedef struct s_minishell
 {
+	t_env				*env;
 	t_token				*token;
 	t_command			*command;
 }						t_minishell;
@@ -103,7 +119,15 @@ bool					add_word(char *input, int *i, t_minishell *minishell);
 
 // ############# expand  #############
 
+char					*expand(char *str, t_minishell *minishell);
+
+bool					init_env(char **env, t_minishell *minishell);
+
 // ############# lib minihell ########
+
+char					*get_key(char *str);
+
+char					*get_value(char *str);
 
 int						ft_strlen(char *str);
 
@@ -153,6 +177,22 @@ t_redir					*ft_redirlast(t_redir *head);
 
 void					ft_redirclear(t_redir *redir);
 
+// env ###########
+
+void					ft_envaddback(t_env **head, t_env *new);
+
+t_env					*ft_envnew(char *key, char *value);
+
+t_env					*ft_envlast(t_env *head);
+
+void					ft_envclear(t_env *env);
+
+bool					init_env(char **env, t_minishell *minishell);
+
+char					*get_key(char *str);
+
+char					*get_value(char *str);
+
 // ############# debug tools ########
 
 void					print_tab(char **tab);
@@ -162,5 +202,7 @@ void					print_token(t_token *token);
 void					print_command(t_command *command);
 
 void					print_redir(t_redir *redir);
+
+void					print_env(t_env *env);
 
 #endif

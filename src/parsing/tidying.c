@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:08:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/29 21:56:40 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:15:23 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ t_redir_type	find_redir_type(char *str)
 		return (IN);
 }
 
-bool	handle_token(t_token **token, t_command *cmd)
+bool	handle_token(t_token **token, t_command *cmd, t_minishell *minishell)
 {
 	t_redir	*redir;
 
 	if ((*token)->type == WORD)
 	{
-		cmd->arguments = add_argument(cmd->arguments, ft_strdup((*token)->str));
+		cmd->arguments = add_argument(cmd->arguments, expand((*token)->str, minishell));
 		if (!cmd->arguments)
 			return (0);
 	}
 	else
 	{
-		redir = ft_redirnew(ft_strdup((*token)->next->str), find_redir_type((*token)->str));
+		redir = ft_redirnew(expand((*token)->next->str, minishell), find_redir_type((*token)->str));
 		if (!redir)
 			return (0);
 		ft_rediraddback(&(cmd->redir), redir);
@@ -59,7 +59,7 @@ bool	tidying(t_minishell *minishell)
 			return (ft_commandclear(minishell->command), 0);
 		while (token && token->type != PIPE)
 		{
-			if (!handle_token(&token, cmd))
+			if (!handle_token(&token, cmd, minishell))
 			{
 				free_tab(cmd->arguments);
 				ft_redirclear(cmd->redir);

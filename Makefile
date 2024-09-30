@@ -13,10 +13,13 @@ SRC	     =		src/main.c							\
 				src/lib/char.c						\
 				src/lib/command.c					\
 				src/lib/debug.c						\
+				src/lib/debug2.c					\
 				src/lib/redir.c						\
 				src/lib/string.c					\
 				src/lib/tab.c						\
 				src/lib/token.c						\
+				src/lib/env.c						\
+				src/lib/env_utils.c						
 
 
 CC       =	    cc

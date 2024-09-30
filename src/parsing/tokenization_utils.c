@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:46:32 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/29 22:11:24 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:10:17 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,34 +56,51 @@ bool	add_redir_simple(char *input, int *i, t_minishell *minishell)
 	return (1);
 }
 
+// if (input[i] == '"' || input[i] == '\'')
+// {
+// 	quote = input[i];
+// 	len++;
+// 	while (input[++i] != quote)
+// 	{
+// 		len++;
+// 	}
+// 	len++;
+// }
+
 int	get_len_word(char *input, int i)
 {
 	int		len;
 	char	quote;
 
 	len = 0;
-	if (input[i] == '"' || input[i] == '\'')
+	while (input[i] && !is_not_word(input[i]))
 	{
-		quote = input[i];
-		len++;
-		while (input[++i] != quote)
+		if (input[i] == '"' || input[i] == '\'')
 		{
+			quote = input[i];
+			len++;
+			while (input[++i] != quote)
+			{
+				len++;
+			}
 			len++;
 		}
 		len++;
-	}
-	else
-	{
-		while (input[i] && !is_not_word(input[i]))
-		{
-			len++;
-			i++;
-		}
+		i++;
 	}
 	return (len);
 }
 
-// "ls -l | wc fdgdfgdd"
+void	add_between_quotes(char *str, char *input, int *j, int *i)
+{
+	char	quote;
+
+	quote = input[(*i)++];
+	str[(*j)++] = quote;
+	while (input[*i] != quote)
+		str[(*j)++] = input[(*i)++];
+	str[(*j)++] = input[(*i)++];
+}
 
 bool	add_word(char *input, int *i, t_minishell *minishell)
 {
@@ -95,20 +112,14 @@ bool	add_word(char *input, int *i, t_minishell *minishell)
 	if (!str)
 		return (0);
 	j = 0;
-	if (input[*i] == '"' || input[*i] == '\'')
+	while (input[*i] && !is_not_word(input[*i]))
 	{
-		str[j++] = input[(*i)++];
-		while (input[*i] != str[0])
+		if (input[*i] == '"' || input[*i] == '\'')
+			add_between_quotes(str, input, &j, i);
+		else
 			str[j++] = input[(*i)++];
-		str[j++] = input[(*i)++];
-		str[j] = 0;
 	}
-	else
-	{
-		while (input[*i] && !is_not_word(input[*i]))
-			str[j++] = input[(*i)++];
-		str[j] = 0;
-	}
+	str[j] = 0;
 	new = ft_tokennew(str, WORD);
 	if (!new)
 		return (free(str), 0);
