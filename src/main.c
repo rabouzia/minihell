@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/09/30 20:12:47 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:50:46 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **env)
 		if (!parsing(input, &minishell))
 			continue ;
 		print_token(minishell.token);
-		// print_command(minishell.command);
+		print_command(minishell.command);
 		// if (!exec(&minishell))
 		// continue ;
 		ft_tokenclear(minishell.token);
