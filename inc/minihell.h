@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/05 20:33:54 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/06 01:46:48 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,28 @@ bool					tidying(t_minishell *minishell);
 bool					add_word(char *input, int *i, t_minishell *minishell);
 
 // ############# exec    #############
+
+bool					exec(t_minishell *minishell);
+
+bool					builtins(t_minishell *minishell, char **arg);
+
+bool 					ft_cd(t_minishell *minishell, char **arg);
+
+bool					ft_echo(t_minishell *minishell, char **arg);
+
+bool 					ft_env(t_minishell *minishell, char **arg);
+
+void 					env_print(t_env *env);
+
+bool 					ft_exit(t_minishell *minishell, char **arg);
+
+bool 					ft_export(t_minishell *minishell, char **arg);
+
+void 					export_print(t_env *env);
+
+bool 					ft_pwd(t_minishell *minishell, char **arg);
+
+bool 					ft_unset(t_minishell *minishell, char **arg);
 
 // ############# expand  #############
 

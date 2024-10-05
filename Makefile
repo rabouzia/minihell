@@ -9,6 +9,15 @@ SRC	     =		src/main.c							\
 				src/parsing/tokenization.c			\
 				src/parsing/tokenization_utils.c	\
 				src/expand/expand.c					\
+				src/exec/exec.c						\
+				src/exec/builtins.c					\
+				src/exec/ft_cd.c					\
+				src/exec/ft_echo.c					\
+				src/exec/ft_env.c					\
+				src/exec/ft_exit.c					\
+				src/exec/ft_export.c				\
+				src/exec/ft_pwd.c					\
+				src/exec/ft_unset.c					\
 				src/lib/char.c						\
 				src/lib/command.c					\
 				src/lib/debug.c						\

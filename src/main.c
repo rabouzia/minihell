@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/05 20:48:24 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/06 01:30:08 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		print_token(minishell.token);
 		print_command(minishell.command);
-		// if (!exec(&minishell))
-		// continue ;
+		if (!exec(&minishell))
+			continue ;
 		ft_tokenclear(minishell.token);
 		ft_commandclear(minishell.command);
 		minishell.token = 0;

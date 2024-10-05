@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/05 14:41:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/06 01:38:43 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
 
-bool ft_cd(t_minishell *minishell, char **arg);
+bool ft_cd(t_minishell *minishell, char **arg)
+{
+	(void) minishell;
+	chdir(arg[1]);
+	return 1;
+}
