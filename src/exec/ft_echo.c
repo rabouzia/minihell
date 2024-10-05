@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/05 14:40:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/05 14:41:31 by rabouzia         ###   ########.fr       */
+/*   Created: 2024/10/05 14:40:08 by rabouzia          #+#    #+#             */
+/*   Updated: 2024/10/05 14:41:09 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool ft_export(t_minishell *minishell, char **arg);
+bool	ft_echo(t_minishell *minishell, char **arg);
