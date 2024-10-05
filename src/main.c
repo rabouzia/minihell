@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/01 18:50:46 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:48:24 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
-	minishell = (t_minishell){0, 0, 0};
+	minishell = (t_minishell){0, 0, 0, 0};
 	if (!init_env(env, &minishell))
 		return (1);
-	print_env(minishell.env);
+	// print_env(minishell.env);
 	while (1)
 	{
 		input = readline("🔥$> ");

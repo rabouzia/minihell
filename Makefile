@@ -8,7 +8,6 @@ SRC	     =		src/main.c							\
 				src/parsing/tidying.c				\
 				src/parsing/tokenization.c			\
 				src/parsing/tokenization_utils.c	\
-				src/exec/exec.c						\
 				src/expand/expand.c					\
 				src/lib/char.c						\
 				src/lib/command.c					\

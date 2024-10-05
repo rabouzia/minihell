@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:49:54 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/30 19:25:53 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:12:11 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ char	*get_value(char *str)
 		value[j++] = str[i++];
 	value[j] = 0;
 	return (value);
+}
+
+bool	ft_isalpha(char c)
+{
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+bool ft_isalnum(char c)
+{
+	return (ft_isalpha(c) || (c >= '0' && c <= '9'));
+}
+
+bool	is_env_valid(char c, bool start)
+{
+	if (start)
+		return (ft_isalpha(c) || c == '_');
+	else
+		return (ft_isalnum(c) || c == '_');
 }

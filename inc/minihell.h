@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/09/30 19:18:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:33:54 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_minishell
 	t_env				*env;
 	t_token				*token;
 	t_command			*command;
+	int					state;
 }						t_minishell;
 
 // ############# parsing #############
@@ -125,9 +126,11 @@ bool					init_env(char **env, t_minishell *minishell);
 
 // ############# lib minihell ########
 
+bool					is_env_valid(char c, bool start);
+
 char					*get_key(char *str);
 
-char					*get_value(char *str);
+char					*get_value_env(char *key, t_env *env);
 
 int						ft_strlen(char *str);
 
@@ -139,11 +142,15 @@ int						ft_strcmp(char *s1, char *s2);
 
 int						ft_strncmp(char *s1, char *s2, int n);
 
+void					ft_strncat(char *dst, const char *src, size_t size);
+
 bool					is_space(char c);
 
 bool					is_not_word(char c);
 
 char					**add_argument(char **tab, char *str);
+
+void					*ft_memset(void *s, int c, size_t n);
 
 void					free_tab(char **tab);
 
