@@ -6,7 +6,7 @@
 /*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/06 01:46:48 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/06 10:30:15 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ bool					builtins(t_minishell *minishell, char **arg);
 bool 					ft_cd(t_minishell *minishell, char **arg);
 
 bool					ft_echo(t_minishell *minishell, char **arg);
+
+int						good_flag(const char *str);
 
 bool 					ft_env(t_minishell *minishell, char **arg);
 

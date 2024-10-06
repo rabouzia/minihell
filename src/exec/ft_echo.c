@@ -6,7 +6,7 @@
 /*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:08 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/06 01:39:29 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/06 10:36:19 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,18 @@ bool	ft_echo(t_minishell *minishell, char **arg)
 {
 	(void) minishell;
 	(void) arg;
-	// int i;
-	
+	int i = 1;
+	while(arg[i])
+	{
+		// if (arg[1][0] == '-')
+		// 	good_flag(arg[i]);
+			
+		// else
+			printf("%s", arg[i]);
+			printf(" ");
+
+		i++;
+	}
 	return 1;
 }
 

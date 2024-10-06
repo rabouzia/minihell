@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:09:01 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/05 21:17:27 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/06 10:32:05 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int get_env_size(char *str, int *i, t_minishell *minishell)
 	// 	*i += 2;
 	// 	return (ft_strlen(ft_itoa(minishell->state)));
 	// }
-	printf("la\n");
 	if (!is_env_valid(str[*i + 1], 1))
 		return ((*i)++, 1);
 	start = ++(*i);
@@ -69,10 +68,8 @@ int get_env_size(char *str, int *i, t_minishell *minishell)
 	}
 	c = str[*i];
 	str[*i] = 0;
-	printf("value = %s\n", str + start);
 	len = get_value_len(str + start, minishell->env);
 	str[*i] = c;
-	printf("value : %d\n", len);
 	return (len);
 }
 
@@ -85,10 +82,8 @@ int get_expanded_len(char *str, t_minishell *minishell)
 	len = 0;
 	i = 0;
 	quote_index = 0;
-	printf("ici get expanded len\n");
 	while (str[i])
 	{
-		printf("ici boucle gel\n");
 		if (str[i] == '\'' && quote_index != 2)	
 			quote_index = change_quote(str[i++], quote_index);
 		else if (str[i] == '"' && quote_index != 1)
@@ -142,7 +137,6 @@ char	*expand(char *str, t_minishell *minishell)
 	int quote_index;
 
 	int len = get_expanded_len(str, minishell);
-	dprintf(2, "expanded len : %d\n", len);
 	expanded = malloc(len + 1);
 	if (!expanded)
 		return (NULL);

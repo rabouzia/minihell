@@ -6,7 +6,7 @@
 /*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/06 01:30:08 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/06 10:31:01 by ramzerk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	main(int ac, char **av, char **env)
 			add_history(input);
 		if (!parsing(input, &minishell))
 			continue ;
-		print_token(minishell.token);
-		print_command(minishell.command);
+		// print_token(minishell.token);
+		// print_command(minishell.command);
 		if (!exec(&minishell))
 			continue ;
 		ft_tokenclear(minishell.token);
