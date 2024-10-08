@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/06 10:30:15 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:08:13 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,25 +122,29 @@ bool					exec(t_minishell *minishell);
 
 bool					builtins(t_minishell *minishell, char **arg);
 
-bool 					ft_cd(t_minishell *minishell, char **arg);
+bool					ft_cd(t_minishell *minishell, char **arg);
 
 bool					ft_echo(t_minishell *minishell, char **arg);
 
 int						good_flag(const char *str);
 
-bool 					ft_env(t_minishell *minishell, char **arg);
+bool					ft_env(t_minishell *minishell, char **arg);
 
-void 					env_print(t_env *env);
+void					env_print(t_env *env);
 
-bool 					ft_exit(t_minishell *minishell, char **arg);
+bool					ft_exit(t_minishell *minishell, char **arg);
 
-bool 					ft_export(t_minishell *minishell, char **arg);
+bool					ft_export(t_minishell *minishell, char **arg);
 
-void 					export_print(t_env *env);
+void					export_print(t_env *env);
 
-bool 					ft_pwd(t_minishell *minishell, char **arg);
+char					*get_exportkey(char *str);
 
-bool 					ft_unset(t_minishell *minishell, char **arg);
+void					export_create(t_minishell *minishell, char *arg);
+
+bool					ft_pwd(t_minishell *minishell, char **arg);
+
+bool					ft_unset(t_minishell *minishell, char **arg);
 
 // ############# expand  #############
 
@@ -168,6 +172,8 @@ int						ft_strncmp(char *s1, char *s2, int n);
 
 void					ft_strncat(char *dst, const char *src, size_t size);
 
+void					ft_putstr_fd(char *str, int fd);
+
 bool					is_space(char c);
 
 bool					is_not_word(char c);
@@ -177,6 +183,26 @@ char					**add_argument(char **tab, char *str);
 void					*ft_memset(void *s, int c, size_t n);
 
 void					free_tab(char **tab);
+
+bool					ft_isalpha(char c);
+
+void					export_print(t_env *env);
+
+int						search_env(t_env *env, char *key);
+
+int						ft_strchr(char *str, char c);
+
+bool					delete_node(t_env **env, char *to_delete);
+
+void					remove_first(t_env **env);
+
+void					remove_last(t_env *env);
+
+void					remove_node(t_env *env, char *to_delete);
+
+void					modify_value(t_env *env, char *key, char *value);
+
+void					free_node(t_env *env);
 
 // token ########
 

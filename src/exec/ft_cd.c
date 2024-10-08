@@ -3,19 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/06 01:38:43 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/08 15:28:19 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
+// bash: cd: too many arguments
+// bash: cd: dsf: No such file or directory
 
-bool ft_cd(t_minishell *minishell, char **arg)
+bool	ft_cd(t_minishell *minishell, char **arg)
 {
-	(void) minishell;
-	chdir(arg[1]);
-	return 1;
+	(void)minishell;
+	if (!arg[1])
+		return (chdir("/home"), 0);
+	if (arg[2])
+		return (ft_putstr_fd("minihell: cd: too many arguments\n", 2), 0);
+	if (chdir(arg[1]) == -1)
+	{
+		printf("minishell: cd: %s : No such file or directory\n", arg[1]);
+		return (0);
+	}
+	return (1);
 }

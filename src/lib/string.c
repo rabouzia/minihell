@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:50:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/05 20:48:13 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:55:11 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,30 +88,4 @@ char	*ft_strdup(char *str)
 	}
 	res[i] = 0;
 	return (res);
-}
-
-void	ft_strncat(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t j;
-
-	if (!src)
-		return ;
-	i = ft_strlen(dst);
-	j = 0;
-	while (src[j] && j < size)
-		dst[i++] = src[j++];
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		*(unsigned char *)(s + i) = (unsigned char)c;
-		i++;
-	}
-	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:54:04 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/29 21:52:32 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:33:40 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_command	*ft_commandlast(t_command *head)
 		head = head->next;
 	return (head);
 }
-
-
 
 void	ft_commandclear(t_command *cmd)
 {

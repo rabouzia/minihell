@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:23 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/06 01:41:22 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/08 17:45:51 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool ft_pwd(t_minishell *minishell, char **arg)
+bool	ft_pwd(t_minishell *minishell, char **arg)
 {
-	(void) minishell;
-	(void) arg;
-	char *pwd;
-	pwd = getcwd(NULL,0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
-	return 1;
+	char	*pwd;
+
+	(void)minishell;
+	(void)arg;
+	pwd = getcwd(NULL, 0);
+	printf("%s\n", pwd);
+	return (1);
 }

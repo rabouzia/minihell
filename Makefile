@@ -24,6 +24,8 @@ SRC	     =		src/main.c							\
 				src/lib/debug2.c					\
 				src/lib/redir.c						\
 				src/lib/string.c					\
+				src/lib/export.c					\
+				src/lib/string2.c					\
 				src/lib/tab.c						\
 				src/lib/token.c						\
 				src/lib/env.c						\

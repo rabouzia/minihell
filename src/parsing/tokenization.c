@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:22:13 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/07 20:42:17 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:37:11 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	tokenization(char *input, t_minishell *minishell)
 			success = add_word(input, &i, minishell);
 		if (!success)
 			return (0);
-		printf("%c\n", input[i]);
+		// printf("%c", input[i]);
 	}
 	return (1);
 }
