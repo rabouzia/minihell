@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:09:01 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/06 10:32:05 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/08 13:36:28 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int get_env_size(char *str, int *i, t_minishell *minishell)
 	start = ++(*i);
 	while (is_env_valid(str[*i], 0))
 	{
-		printf("i : %d\n", *i);
+		// printf("i : %d\n", *i);
 		(*i)++;
 	}
 	c = str[*i];
@@ -102,18 +102,20 @@ int get_expanded_len(char *str, t_minishell *minishell)
 	return (len);
 }
 
-void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
-{
-	char c;
-	char *value;
-	int start;
-	// if (str[*i + 1] == '?')
+// if (str[*i + 1] == '?')
 	// {
 	// 	*i += 2;
 	//	ft_strncat(expanded, ft_itoa(minishell->state), ft_strlen(ft_itoa(minishell->state)));
 	//	return ;
 	// }
 	// printf("ici\n");
+	
+void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
+{
+	char c;
+	char *value;
+	int start;
+	
 	if (!is_env_valid(str[*i + 1], 1))
 	{
 		ft_strncat(expanded, str + (*i)++, 1);
@@ -125,6 +127,8 @@ void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
 	c = str[*i];
 	str[*i] = 0;
 	value = get_value_env(str + start, minishell->env);
+	if (!value)
+		return;
 	ft_strncat(expanded, value, ft_strlen(value));
 	str[*i] = c;
 	return ;
