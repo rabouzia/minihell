@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 20:10:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 15:03:55 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:43:38 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	print_tab(char **tab)
 	if (!tab)
 		return ;
 	i = 0;
-		printf("ARGUMENTS = ");
-
+	printf("ARGUMENTS = ");
 	while (tab[i])
 	{
 		printf("%s, ", tab[i]);
@@ -47,6 +46,7 @@ void	print_tab(char **tab)
 int	tab_len(char **tab)
 {
 	int	i;
+
 	i = 0;
 	while (tab[i])
 		i++;
@@ -55,8 +55,8 @@ int	tab_len(char **tab)
 
 char	**add_argument(char **tab, char *str)
 {
-	char **res;
-	int i;
+	char	**res;
+	int		i;
 
 	if (!str)
 		return (free_tab(tab), NULL);
@@ -80,5 +80,5 @@ char	**add_argument(char **tab, char *str)
 	}
 	res[i] = str;
 	res[++i] = 0;
-	return (free(tab),res);
+	return (free(tab), res);
 }

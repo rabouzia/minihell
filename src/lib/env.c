@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:32:39 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 18:59:26 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:17:34 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_envclear(t_env *env)
 bool	init_env(char **env, t_minishell *minishell)
 {
 	int i = 0;
+
 	t_env *env_t;
 	while (env[i])
 	{

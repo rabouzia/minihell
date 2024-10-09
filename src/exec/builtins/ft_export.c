@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 18:32:48 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:13:27 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_export(t_minishell *minishell, char **arg)
 	if (!arg[1])
 	{
 		export_print(minishell->env);
-		return (0);
+		return (1);
 	}
 	i = 1;
 	while (arg[i])

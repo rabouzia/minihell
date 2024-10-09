@@ -6,37 +6,11 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:16 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 12:02:53 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:03:34 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-/*
-
--------------------
-
->exit a d d dd
-exit
-bash: exit: a: numeric argument required
->echo $?
-2
-
--------------------
->exit 3 3
-exit
-bash: exit: too many arguments
->echo $?
-1
-
-3 fffff
-too many argument
-
-ffff 4444
-numeric argument
-
-
-*/
 
 void	ft_end(t_minishell *minishell)
 {
@@ -55,7 +29,8 @@ void	exit_value(t_minishell *minishell, char *msg)
 bool	ft_exit(t_minishell *minishell, char **arg)
 {
 	char	*str;
-	int ex;
+	int		ex;
+
 	printf("exit\n");
 	if (!arg[1])
 	{
@@ -66,7 +41,7 @@ bool	ft_exit(t_minishell *minishell, char **arg)
 	while (*str)
 	{
 		if (!ft_isnum(*str))
-			exit_value(minishell , arg[1]);
+			exit_value(minishell, arg[1]);
 		if (ft_isnum(*str) && !arg[2])
 		{
 			ex = ft_atoi(arg[1]);

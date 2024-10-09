@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 15:28:19 by rabouzia         ###   ########.fr       */
+/*   Created: 2024/10/05 14:40:27 by rabouzia          #+#    #+#             */
+/*   Updated: 2024/10/09 18:14:36 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-// bash: cd: too many arguments
-// bash: cd: dsf: No such file or directory
-
-bool	ft_cd(t_minishell *minishell, char **arg)
+bool	ft_unset(t_minishell *minishell, char **arg)
 {
-	(void)minishell;
+	int	i;
+
+	i = 1;
 	if (!arg[1])
-		return (chdir("/home"), 0);
-	if (arg[2])
-		return (ft_putstr_fd("minihell: cd: too many arguments\n", 2), 0);
-	if (chdir(arg[1]) == -1)
+		return (1);
+	while (arg[i])
 	{
-		printf("minishell: cd: %s : No such file or directory\n", arg[1]);
-		return (0);
+		if (!delete_node(&minishell->env, arg[i]))
+			i++;
+		i++;
 	}
+	return (1);
+}
+
+bool	delete_node(t_env **env, char *to_delete)
+{
+	int	flag;
+	int	len;
+
+	len = count_env(*env);
+	flag = search_env(*env, to_delete);
+	if (!flag)
+		return (0);
+	if (flag == 1)
+		remove_first(env);
+	else if (flag == len + 1)
+		remove_last(*env);
+	else
+		remove_node(*env, to_delete);
 	return (1);
 }

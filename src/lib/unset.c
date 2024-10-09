@@ -6,11 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:19:11 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 19:25:04 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:24:57 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
+
+// (address: env) -> (address: node) -> [heap]
 
 void	remove_first(t_env **env)
 {

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/08 15:37:52 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:19:15 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int ac, char **av, char **env)
 {
-	char *input;
-	t_minishell minishell;
+	char		*input;
+	t_minishell	minishell;
 
 	(void)ac;
 	(void)av;
-
-	minishell = (t_minishell){0, 0, 0, 0};
+	minishell = (t_minishell){0};
+	minishell.pipe.envp = env;
 	if (!init_env(env, &minishell))
 		return (1);
-	// print_env(minishell.env);
 	while (1)
 	{
 		input = readline("🔥$> ");
@@ -35,8 +34,6 @@ int	main(int ac, char **av, char **env)
 			add_history(input);
 		if (!parsing(input, &minishell))
 			continue ;
-		// print_token(minishell.token);
-		// print_command(minishell.command);
 		exec(&minishell);
 		ft_tokenclear(minishell.token);
 		ft_commandclear(minishell.command);
@@ -46,3 +43,5 @@ int	main(int ac, char **av, char **env)
 	ft_envclear(minishell.env);
 	return (0);
 }
+// print_token(minishell.token);
+// print_command(minishell.command);
