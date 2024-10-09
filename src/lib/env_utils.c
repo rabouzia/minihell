@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:49:54 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 16:53:32 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:03:48 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ bool	ft_isalpha(char c)
 bool ft_isalnum(char c)
 {
 	return (ft_isalpha(c) || (c >= '0' && c <= '9'));
+}
+
+bool ft_isnum(char c)
+{
+	return ((c >= '0' && c <= '9'));
 }
 
 bool	is_env_valid(char c, bool start)

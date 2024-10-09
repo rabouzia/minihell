@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:16 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 19:32:30 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:02:53 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 -------------------
 
->exit a d d dd 
+>exit a d d dd
 exit
 bash: exit: a: numeric argument required
 >echo $?
@@ -29,15 +29,53 @@ bash: exit: too many arguments
 >echo $?
 1
 
+3 fffff
+too many argument
+
+ffff 4444
+numeric argument
+
+
 */
 
-bool ft_exit(t_minishell *minishell, char **arg)
+void	ft_end(t_minishell *minishell)
 {
-	(void) minishell;
+	ft_tokenclear(minishell->token);
+	ft_commandclear(minishell->command);
+	ft_envclear(minishell->env);
+}
+
+void	exit_value(t_minishell *minishell, char *msg)
+{
+	printf("minihell: exit: %s: numeric argument required\n", msg);
+	ft_end(minishell);
+	exit(2);
+}
+
+bool	ft_exit(t_minishell *minishell, char **arg)
+{
+	char	*str;
+	int ex;
+	printf("exit\n");
 	if (!arg[1])
 	{
-		printf("exit\n");
-		exit(0); // leak
+		ft_end(minishell);
+		exit(0);
 	}
-	return 1;
+	str = arg[1];
+	while (*str)
+	{
+		if (!ft_isnum(*str))
+			exit_value(minishell , arg[1]);
+		if (ft_isnum(*str) && !arg[2])
+		{
+			ex = ft_atoi(arg[1]);
+			ft_end(minishell);
+			exit(ex);
+		}
+		str++;
+	}
+	if (arg[2])
+		return (printf("minihell: exit: too many arguments\n"), 0);
+	return (1);
 }

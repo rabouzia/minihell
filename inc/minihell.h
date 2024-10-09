@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/08 19:20:59 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:20:28 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ bool					is_env_valid(char c, bool start);
 
 char					*get_key(char *str);
 
+int						ft_atoi(const char *str);
+
 char					*get_value_env(char *key, t_env *env);
 
 int						ft_strlen(char *str);
@@ -205,6 +207,8 @@ void					modify_value(t_env *env, char *key, char *value);
 void					free_node(t_env *env);
 
 int						count_env(t_env *env);
+
+bool					ft_isnum(char c);
 
 // token ########
 
