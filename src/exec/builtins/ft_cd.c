@@ -6,14 +6,11 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 18:14:02 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:50:07 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-// bash: cd: too many arguments
-// bash: cd: dsf: No such file or directory
 
 bool	ft_cd(t_minishell *minishell, char **arg)
 {

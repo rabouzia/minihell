@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 18:17:02 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:15:45 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,39 +232,65 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 	error_msg(path, cmd);
 }
 
+// int		nb_pipe;
+// nb_pipe = pipe_counter(minishell->command);
 bool	exec(t_minishell *minishell)
 {
-	pid_t	pid;
+	int		fd[2];
+	int			save[2];
+	t_command	*cmd;
 
-	// t_pipe	*pip;
-	// int		nb_pipe;
-	// nb_pipe = pipe_counter(minishell->command);
-	// pip = minishell->pipe;
-	if (builtins(minishell, minishell->command->arguments))
-		return (0);
-	// while(nb_pipe != 0)
-	// {
-	// if (minishell->command->redir->type == WORD)
-	// execve("/bin/ls", test, minishell->pipe.envp);
-	// nb_pipe--;
-	// }
-	// if (pipe(pip->pipe) == -1)
-	// 	return (1);
-	// if (pid == -1)
-	// 	return (close(pip->pipe[0]), close(pip->pipe[1]), -1);
-	pid = fork();
-	if (pid == 0)
-		excute(minishell->command->arguments, minishell->pipe.envp, minishell);
-	// 	child_n1(pip);
-	// close(pip->pipe[1]);
-	// if (nb_pipe > 0 && ac_loop(pip) == -1)
-	// 	return (-1);
-	// pid = fork();
-	// if (pid == -1)
-	// 	return (close(pip->pipe[0]), -1);
-	// if (pid == 0)
-	// 	child_n2(pip);
-	// return (close(pip->pipe[0]), wait_for_child(pid, pip));
-	wait(NULL);
-	return (1);
+	save[STDIN_FILENO] = dup(STDIN_FILENO);
+	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
+	cmd = minishell->command;
+	if (cmd->next == NULL && is_a_builtin(cmd->arguments) == true)
+	{
+		builtins(minishell, cmd->arguments);
+		return 1;
+	}
+	while (cmd->next)
+	{
+		if (pipe(fd) == -1)
+			return (1);
+		cmd->pid = fork();
+		if (cmd->pid == -1)
+			return (close(fd[0]), close(fd[1]), -1);
+		if (cmd->pid == 0)
+		{
+			dup2(fd[1], STDOUT_FILENO);
+			(close(save[0]), close(save[1]));
+			(close(fd[0]), close(fd[1]));
+			if (is_a_builtin(cmd->arguments) == true)
+				exit(builtins(minishell, cmd->arguments));
+			excute (cmd->arguments, minishell->pipe.envp, minishell);
+		}
+		dup2(fd[0], STDIN_FILENO);
+		(close(fd[0]), close(fd[1]));
+		cmd = cmd->next;
+	}
+	if (cmd)
+	{
+		cmd->pid = fork();
+		if (cmd->pid == -1)
+			return (-1);
+		if (cmd->pid == 0)
+		{
+			(close(save[0]), close(save[1]));
+			if (is_a_builtin(cmd->arguments) == true)
+				exit(builtins(minishell, cmd->arguments));
+			excute (cmd->arguments, minishell->pipe.envp, minishell);
+		}		
+	}
+	cmd = minishell->command;
+	while (cmd)
+	{
+		waitpid(cmd->pid, NULL, 0);
+		cmd = cmd->next;
+	}
+	dup2(save[STDIN_FILENO],STDIN_FILENO);
+	dup2(save[STDOUT_FILENO],STDOUT_FILENO);
+	(close(save[0]), close(save[1]));
+	return (0);
 }
+
+// jouvre les pipes

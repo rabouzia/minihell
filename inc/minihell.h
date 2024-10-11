@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/09 18:16:10 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:57:55 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_command
 	char				**arguments;
 	t_redir				*redir;
 	struct s_command	*next;
+	int					pid;
 }						t_command;
 
 // env
@@ -129,6 +130,8 @@ bool					tidying(t_minishell *minishell);
 bool					add_word(char *input, int *i, t_minishell *minishell);
 
 // ############# exec    #############
+
+bool					is_a_builtin(char **arg);
 
 bool					exec(t_minishell *minishell);
 
