@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 20:10:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 16:46:05 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:29:38 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	free_tab(char **tab)
 	while (tab[i])
 	{
 		free(tab[i]);
-		tab[i] = NULL;
 		i++;
 	}
 	free(tab);
-	*tab = NULL;
 }
 
 void	print_tab(char **tab)

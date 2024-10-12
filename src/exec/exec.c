@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 18:02:34 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:43:47 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,14 +195,14 @@ void	error_msg(char *path, char **cmd, t_minishell *minishell)
 	{
 		ft_putstr_fd("Permission denied: ", 2);
 		ft_putendl_fd(cmd[0], 2);
-		free_split(cmd);
 		free(path);
+		ft_end(minishell);
 		exit(126);
 	}
 	if (path)
 		free(path);
 	ft_putendl_fd(cmd[0], 2);
-	free_split(cmd);
+	ft_end(minishell);
 	exit(127);
 }
 void	excute(char **cmd, char **env, t_minishell *minishell)
@@ -229,7 +229,6 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 	if (!path)
 		error_msg(path, cmd, minishell);
 	execve(path, cmd, env);
-	free_tab(minishell->envp);
 	error_msg(path, cmd, minishell);
 }
 
@@ -283,7 +282,7 @@ void	ft_tabupdate(t_minishell *minishell)
 
 	env = minishell->env;
 	tmp = env;
-	i = 0;
+	i = 1;
 	while (tmp)
 	{
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:10:46 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/11 17:18:52 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:02:24 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ t_token	*ft_tokenlast(t_token *head)
 	return (head);
 }
 
-void	ft_tokenclear(t_token *token)
+void	ft_tokenclear(t_token **token)
 {
 	t_token	*tmp;
 
-	while (token)
+	while (*token)
 	{
-		tmp = token->next;
-		if (token->type != PIPE)
-			free(token->str);
-		free(token);
-		token = tmp;
+		tmp = (*token)->next;
+		if ((*token)->type != PIPE)
+			free((*token)->str);
+		free((*token));
+		(*token) = tmp;
 	}
 }

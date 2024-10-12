@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:54:04 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 16:47:46 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:02:35 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_commandaddback(t_command **head, t_command *new)
 t_command	*ft_commandnew(char **tab, t_redir *redir)
 {
 	t_command	*cmd;
-
 	cmd = malloc(sizeof(t_command));
 	if (!cmd)
 		return (NULL);
@@ -42,17 +41,16 @@ t_command	*ft_commandlast(t_command *head)
 	return (head);
 }
 
-void	ft_commandclear(t_command *cmd)
+void	ft_commandclear(t_command **cmd)
 {
 	t_command	*tmp;
 
-	while (cmd)
+	while (*cmd)
 	{
-		tmp = cmd->next;
-		free_tab(cmd->arguments);
-		cmd->arguments = NULL;
-		ft_redirclear(cmd->redir);
-		free(cmd);
-		cmd = tmp;
+		tmp = (*cmd)->next;
+		free_tab((*cmd)->arguments);
+		ft_redirclear((*cmd)->redir);
+		free((*cmd));
+		(*cmd) = tmp;
 	}
 }

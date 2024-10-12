@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:32:39 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 15:17:34 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:04:04 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ t_env	*ft_envlast(t_env *head)
 	return (head);
 }
 
-void	ft_envclear(t_env *env)
+void	ft_envclear(t_env **env)
 {
 	t_env	*tmp;
 
-	while (env)
+	while ((*env))
 	{
-		tmp = env->next;
-		free(env->key);
-		free(env->value);
-		free(env);
-		env = tmp;
+		tmp = (*env)->next;
+		free((*env)->key);
+		free((*env)->value);
+		free((*env));
+		(*env) = tmp;
 	}
 }
 
@@ -66,7 +66,7 @@ bool	init_env(char **env, t_minishell *minishell)
 	{
 		env_t = ft_envnew(get_key(env[i]), get_value(env[i]));
 		if (!env_t)
-			return (ft_envclear(minishell->env), 0);
+			return (ft_envclear(&minishell->env), 0);
 		ft_envaddback(&(minishell->env), env_t);
 		i++;
 	}

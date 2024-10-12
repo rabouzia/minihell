@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/12 12:33:24 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:03:20 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ t_token					*ft_tokennew(char *str, t_token_type type);
 
 t_token					*ft_tokenlast(t_token *head);
 
-void					ft_tokenclear(t_token *token);
+void					ft_tokenclear(t_token **token);
 
 // redir ########
 
@@ -234,7 +234,7 @@ t_command				*ft_commandnew(char **tab, t_redir *new);
 
 t_command				*ft_commandlast(t_command *head);
 
-void					ft_commandclear(t_command *cmd);
+void					ft_commandclear(t_command **cmd);
 
 // command #######
 
@@ -254,7 +254,7 @@ t_env					*ft_envnew(char *key, char *value);
 
 t_env					*ft_envlast(t_env *head);
 
-void					ft_envclear(t_env *env);
+void					ft_envclear(t_env **env);
 
 bool					init_env(char **env, t_minishell *minishell);
 

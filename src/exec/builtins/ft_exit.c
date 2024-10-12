@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:16 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 17:59:39 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:59:01 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_end(t_minishell *minishell)
 {
-	ft_tokenclear(minishell->token);
-	ft_commandclear(minishell->command);
-	ft_envclear(minishell->env);
+	ft_tokenclear(&minishell->token);
+	ft_commandclear(&minishell->command);
+	ft_envclear(&minishell->env);
 	if (minishell->envp != NULL)
 	{
 		free_tab(minishell->envp);
