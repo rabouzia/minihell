@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/11 19:15:45 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:02:34 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,9 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putstr_fd("\n", fd);
 }
 
-void	error_msg(char *path, char **cmd)
+void	error_msg(char *path, char **cmd, t_minishell *minishell)
 {
+	(void)minishell;
 	if (!path && ft_strchr(cmd[0], '/') != 0)
 		ft_putstr_fd("No such file or directory : ", 2);
 	else if (!path)
@@ -222,21 +223,87 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 		if (env[i])
 			tmp_path = ft_split(&env[i][5], ':');
 		if (!tmp_path)
-			error_msg(path, cmd);
+			error_msg(path, cmd, minishell);
 		path = cmd_finder(cmd, tmp_path);
 	}
 	if (!path)
-		error_msg(path, cmd);
+		error_msg(path, cmd, minishell);
 	execve(path, cmd, env);
-	ft_end(minishell);
-	error_msg(path, cmd);
+	free_tab(minishell->envp);
+	error_msg(path, cmd, minishell);
 }
 
 // int		nb_pipe;
+
+size_t	ft_strlcpy(char *dst, char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size != 0)
+	{
+		while (src[i] && i < size - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = 0;
+	}
+	while (src[i])
+		i++;
+	return (i);
+}
+
 // nb_pipe = pipe_counter(minishell->command);
+
+char	*ft_strjoin3(char *s1, char *s2, char *s3)
+{
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	s3_len;
+	char	*ret;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	s3_len = ft_strlen(s3);
+	ret = malloc(s1_len + s2_len + s3_len + 1);
+	if (!ret)
+		return (NULL);
+	ft_strlcpy(ret, s1, s1_len + 1);
+	ft_strlcpy(ret + s1_len, s2, s2_len + 1);
+	ft_strlcpy(ret + s1_len + s2_len, s3, s3_len + 1);
+	return (ret);
+}
+
+void	ft_tabupdate(t_minishell *minishell)
+{
+	t_env	*env;
+	t_env	*tmp;
+	int		i;
+
+	env = minishell->env;
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	minishell->envp = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env)
+	{
+		minishell->envp[i] = ft_strjoin3(env->key, "=", env->value);
+		i++;
+		env = env->next;
+	}
+	minishell->envp[i] = 0;
+	// print_tab(minishell->envp);
+}
+
 bool	exec(t_minishell *minishell)
 {
-	int		fd[2];
+	int			fd[2];
 	int			save[2];
 	t_command	*cmd;
 
@@ -246,7 +313,7 @@ bool	exec(t_minishell *minishell)
 	if (cmd->next == NULL && is_a_builtin(cmd->arguments) == true)
 	{
 		builtins(minishell, cmd->arguments);
-		return 1;
+		return (1);
 	}
 	while (cmd->next)
 	{
@@ -262,7 +329,8 @@ bool	exec(t_minishell *minishell)
 			(close(fd[0]), close(fd[1]));
 			if (is_a_builtin(cmd->arguments) == true)
 				exit(builtins(minishell, cmd->arguments));
-			excute (cmd->arguments, minishell->pipe.envp, minishell);
+			ft_tabupdate(minishell);
+			excute(cmd->arguments, minishell->envp, minishell);
 		}
 		dup2(fd[0], STDIN_FILENO);
 		(close(fd[0]), close(fd[1]));
@@ -278,8 +346,9 @@ bool	exec(t_minishell *minishell)
 			(close(save[0]), close(save[1]));
 			if (is_a_builtin(cmd->arguments) == true)
 				exit(builtins(minishell, cmd->arguments));
-			excute (cmd->arguments, minishell->pipe.envp, minishell);
-		}		
+			ft_tabupdate(minishell);
+			excute(cmd->arguments, minishell->envp, minishell);
+		}
 	}
 	cmd = minishell->command;
 	while (cmd)
@@ -287,8 +356,8 @@ bool	exec(t_minishell *minishell)
 		waitpid(cmd->pid, NULL, 0);
 		cmd = cmd->next;
 	}
-	dup2(save[STDIN_FILENO],STDIN_FILENO);
-	dup2(save[STDOUT_FILENO],STDOUT_FILENO);
+	dup2(save[STDIN_FILENO], STDIN_FILENO);
+	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
 	return (0);
 }

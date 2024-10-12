@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/11 18:57:55 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:33:24 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,6 @@ typedef struct s_env
 	struct s_env		*next;
 }						t_env;
 
-typedef struct s_pipe
-{
-	int					fd_in;
-	int					fd_out;
-	int					pipe[2];
-	int					oldfd;
-	int					flag;
-	int					i;
-	char				**envp;
-	t_env				env;
-}						t_pipe;
 // minishell
 
 typedef struct s_minishell
@@ -95,7 +84,7 @@ typedef struct s_minishell
 	t_env				*env;
 	t_token				*token;
 	t_command			*command;
-	t_pipe				pipe;
+	char				**envp;
 	int					state;
 }						t_minishell;
 

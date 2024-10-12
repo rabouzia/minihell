@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:54:04 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 16:33:40 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:47:46 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_commandclear(t_command *cmd)
 	{
 		tmp = cmd->next;
 		free_tab(cmd->arguments);
+		cmd->arguments = NULL;
 		ft_redirclear(cmd->redir);
 		free(cmd);
 		cmd = tmp;

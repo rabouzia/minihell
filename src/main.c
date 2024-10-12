@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/11 19:02:04 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:45:17 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	minishell = (t_minishell){0};
-	minishell.pipe.envp = env;
 	if (!init_env(env, &minishell))
 		return (1);
 	while (1)
@@ -45,3 +44,6 @@ int	main(int ac, char **av, char **env)
 	ft_envclear(minishell.env);
 	return (0);
 }
+
+
+// update char **env
