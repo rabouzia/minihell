@@ -6,26 +6,27 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/12 19:03:20 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/13 22:50:03 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINIHELL_H
+# define MINIHELL_H
 
 # include <dirent.h>
 # include <readline/history.h>
-# include <readline/readline.h> // readline
+# include <readline/readline.h>
 # include <stdbool.h>
-# include <stdio.h>     // printf
-# include <stdlib.h>    // malloc, free, exit
-# include <string.h>    // strerror
-# include <sys/ioctl.h> // ioctl
-# include <sys/stat.h>  // stat, lstat, fstat
-# include <sys/types.h> // stat, lstat, fstat, unlink
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/ioctl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 // token
 
@@ -122,7 +123,7 @@ bool					add_word(char *input, int *i, t_minishell *minishell);
 
 bool					is_a_builtin(char **arg);
 
-bool					exec(t_minishell *minishell);
+bool					exec(t_command *cmd, t_minishell *minishell);
 
 bool					builtins(t_minishell *minishell, char **arg);
 
@@ -152,6 +153,17 @@ bool					ft_unset(t_minishell *minishell, char **arg);
 
 void					ft_end(t_minishell *minishell);
 
+// pipe
+
+void					excute(char **cmd, char **env, t_minishell *minishell);
+
+void					ft_tabupdate(t_minishell *minishell);
+
+void					error_msg(char *path, char **cmd,
+							t_minishell *minishell);
+
+char					*cmd_finder(char **cmd, char **env);
+
 // ############# expand  #############
 
 char					*expand(char *str, t_minishell *minishell);
@@ -161,6 +173,16 @@ bool					init_env(char **env, t_minishell *minishell);
 // ############# lib minihell ########
 
 bool					is_env_valid(char c, bool start);
+
+char					*ft_strjoin3(char *s1, char *s2, char *s3);
+
+char					*ft_strjoin(char *s1, char *s2);
+
+void					ft_putendl_fd(char *s, int fd);
+
+char					**ft_split(char const *s, char c);
+
+size_t					ft_strlcpy(char *dst, char *src, size_t size);
 
 char					*get_key(char *str);
 
@@ -261,8 +283,6 @@ bool					init_env(char **env, t_minishell *minishell);
 char					*get_key(char *str);
 
 char					*get_value(char *str);
-
-// ############# debug tools ########
 
 void					print_tab(char **tab);
 

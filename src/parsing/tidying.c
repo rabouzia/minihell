@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:08:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/30 19:15:23 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:13:04 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	tidying(t_minishell *minishell)
 	{
 		cmd = ft_commandnew(NULL, NULL);
 		if (!cmd)
-			return (ft_commandclear(minishell->command), 0);
+			return (ft_commandclear(&minishell->command), 0);
 		while (token && token->type != PIPE)
 		{
 			if (!handle_token(&token, cmd, minishell))

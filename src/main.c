@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/12 19:04:55 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:37:32 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	while (1)
 	{
+		// minishell.tabenv = ;
 		minishell.token = NULL;
 		input = readline("🔥$> ");
 		if (!input)
@@ -35,7 +36,7 @@ int	main(int ac, char **av, char **env)
 		// printf("input: %s\n", input);
 		if (!parsing(input, &minishell))
 			continue ;
-		exec(&minishell);
+		exec(minishell.command, &minishell);
 		ft_tokenclear(&minishell.token);
 		ft_commandclear(&minishell.command);
 		minishell.token = 0;

@@ -6,348 +6,82 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 18:43:47 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/13 22:52:06 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-static int	word_count(char const *s, char c)
+void	open_input(t_redir *redir, t_minishell *minishell)
 {
-	int	count;
-	int	on_word;
+	int	fd;
 
-	count = 0;
-	on_word = 0;
-	while (*s)
+	fd = open(redir->file, O_RDONLY);
+	if (fd == -1)
 	{
-		if (*s == c)
-		{
-			if (on_word)
-			{
-				count++;
-				on_word = 0;
-			}
-		}
+		perror(redir->file);
+		ft_end(minishell);
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+void	open_redirections(t_command *cmd, t_minishell *minishell)
+{
+	t_redir	*redir = cmd->redir;
+	
+	while (redir != NULL)
+	{
+		if (redir->type == HEREDOC)
+			{ /* open heredoc */ }
+		else if (redir->type == IN)
+			{ /* open input */ }
 		else
-			on_word = 1;
-		s++;
+			{ /* open output */ }
+		redir = redir->next;
 	}
-	return (count + on_word);
+	return (EXIT_SUCCESS)
 }
 
-// static void	*free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (tab)
-// 	{
-// 		while (tab[i])
-// 		{
-// 			free(tab[i]);
-// 			i++;
-// 		}
-// 		free(tab);
-// 	}
-// 	return (NULL);
-// }
-
-static char	*copy_next_word(char const *s, char c, int *i)
+int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 {
-	char	*word;
-	int		tmp;
-	int		j;
+	int	fd[2];
 
-	while (s[*i] && s[*i] == c)
-		(*i)++;
-	tmp = *i;
-	while (s[*i] && s[*i] != c)
-		(*i)++;
-	word = malloc((*i - tmp + 1) * sizeof(char));
-	if (!word)
-		return (NULL);
-	j = 0;
-	while (j < *i - tmp)
+	if (pipe(fd) == -1)
+		return (1);
+	cmd->pid = fork();
+	if (cmd->pid == -1)
+		return (close(fd[0]), close(fd[1]), -1);
+	if (cmd->pid == 0)
 	{
-		word[j] = s[tmp + j];
-		j++;
+		if (cmd->next)
+			dup2(fd[1], STDOUT_FILENO);
+		(close(save[0]), close(save[1]));
+		(close(fd[0]), close(fd[1]));
+		open_redirections(cmd);
+		if (is_a_builtin(cmd->arguments) == true)
+			exit(builtins(minishell, cmd->arguments));
+		ft_tabupdate(minishell);
+		excute(cmd->arguments, minishell->envp, minishell);
 	}
-	word[j] = '\0';
-	return (word);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**split;
-	int		words;
-	int		word;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	words = word_count(s, c);
-	split = malloc((words + 1) * sizeof(char *));
-	if (!split)
-		return (NULL);
-	i = 0;
-	word = 0;
-	while (word < words)
-	{
-		split[word] = copy_next_word(s, c, &i);
-		if (!split[word])
-			return (free_tab(split), NULL);
-		word++;
-	}
-	split[words] = NULL;
-	return (split);
-}
-
-int	pipe_counter(t_command *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd)
-	{
-		if (cmd->redir->type == PIPE)
-			i++;
-		cmd = cmd->next;
-	}
+	dup2(fd[0], STDIN_FILENO);
+	(close(fd[0]), close(fd[1]));
 	return (1);
 }
 
-void	free_split(char **split)
+bool	exec(t_command *cmd, t_minishell *minishell)
 {
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*tmp;
-	char	*og_tmp;
-
-	if ((s1 == NULL) || (s2 == NULL))
-		return (NULL);
-	tmp = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (tmp == NULL)
-		return (NULL);
-	og_tmp = tmp;
-	while (*s1)
-		*tmp++ = *s1++;
-	while (*s2)
-		*tmp++ = *s2++;
-	*tmp = '\0';
-	return (og_tmp);
-}
-
-char	*cmd_finder(char **cmd, char **env)
-{
-	int		i;
-	char	*tmp;
-	char	*result;
-	char	*slash;
-
-	result = NULL;
-	slash = ft_strjoin("/", cmd[0]);
-	if (!slash)
-		return (NULL);
-	i = 0;
-	while (env[i])
-	{
-		tmp = ft_strjoin(env[i], slash);
-		if (!tmp)
-			return (free(slash), NULL);
-		if (access(tmp, F_OK) == 0)
-		{
-			result = ft_strdup(tmp);
-			if (!result)
-				return (free(tmp), NULL);
-		}
-		free(tmp);
-		i++;
-	}
-	return (free_split(env), free(slash), result);
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	ft_putstr_fd(s, fd);
-	ft_putstr_fd("\n", fd);
-}
-
-void	error_msg(char *path, char **cmd, t_minishell *minishell)
-{
-	(void)minishell;
-	if (!path && ft_strchr(cmd[0], '/') != 0)
-		ft_putstr_fd("No such file or directory : ", 2);
-	else if (!path)
-		ft_putstr_fd("command not found: ", 2);
-	else if (access(path, F_OK) == 0 && access(path, X_OK) != 0)
-	{
-		ft_putstr_fd("Permission denied: ", 2);
-		ft_putendl_fd(cmd[0], 2);
-		free(path);
-		ft_end(minishell);
-		exit(126);
-	}
-	if (path)
-		free(path);
-	ft_putendl_fd(cmd[0], 2);
-	ft_end(minishell);
-	exit(127);
-}
-void	excute(char **cmd, char **env, t_minishell *minishell)
-{
-	int		i;
-	char	*path;
-	char	**tmp_path;
-
-	tmp_path = NULL;
-	path = NULL;
-	i = 0;
-	if (access(cmd[0], F_OK) == 0)
-		path = ft_strdup(cmd[0]);
-	else if (env[i])
-	{
-		while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
-			i++;
-		if (env[i])
-			tmp_path = ft_split(&env[i][5], ':');
-		if (!tmp_path)
-			error_msg(path, cmd, minishell);
-		path = cmd_finder(cmd, tmp_path);
-	}
-	if (!path)
-		error_msg(path, cmd, minishell);
-	execve(path, cmd, env);
-	error_msg(path, cmd, minishell);
-}
-
-// int		nb_pipe;
-
-size_t	ft_strlcpy(char *dst, char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (size != 0)
-	{
-		while (src[i] && i < size - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
-	}
-	while (src[i])
-		i++;
-	return (i);
-}
-
-// nb_pipe = pipe_counter(minishell->command);
-
-char	*ft_strjoin3(char *s1, char *s2, char *s3)
-{
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	s3_len;
-	char	*ret;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	s3_len = ft_strlen(s3);
-	ret = malloc(s1_len + s2_len + s3_len + 1);
-	if (!ret)
-		return (NULL);
-	ft_strlcpy(ret, s1, s1_len + 1);
-	ft_strlcpy(ret + s1_len, s2, s2_len + 1);
-	ft_strlcpy(ret + s1_len + s2_len, s3, s3_len + 1);
-	return (ret);
-}
-
-void	ft_tabupdate(t_minishell *minishell)
-{
-	t_env	*env;
-	t_env	*tmp;
-	int		i;
-
-	env = minishell->env;
-	tmp = env;
-	i = 1;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	minishell->envp = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (env)
-	{
-		minishell->envp[i] = ft_strjoin3(env->key, "=", env->value);
-		i++;
-		env = env->next;
-	}
-	minishell->envp[i] = 0;
-	// print_tab(minishell->envp);
-}
-
-bool	exec(t_minishell *minishell)
-{
-	int			fd[2];
-	int			save[2];
-	t_command	*cmd;
+	int save[2];
 
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
-	cmd = minishell->command;
-	if (cmd->next == NULL && is_a_builtin(cmd->arguments) == true)
+	if (!cmd->next && is_a_builtin(cmd->arguments))
+		return (builtins(minishell, cmd->arguments), 1);
+	while (cmd)
 	{
-		builtins(minishell, cmd->arguments);
-		return (1);
-	}
-	while (cmd->next)
-	{
-		if (pipe(fd) == -1)
-			return (1);
-		cmd->pid = fork();
-		if (cmd->pid == -1)
-			return (close(fd[0]), close(fd[1]), -1);
-		if (cmd->pid == 0)
-		{
-			dup2(fd[1], STDOUT_FILENO);
-			(close(save[0]), close(save[1]));
-			(close(fd[0]), close(fd[1]));
-			if (is_a_builtin(cmd->arguments) == true)
-				exit(builtins(minishell, cmd->arguments));
-			ft_tabupdate(minishell);
-			excute(cmd->arguments, minishell->envp, minishell);
-		}
-		dup2(fd[0], STDIN_FILENO);
-		(close(fd[0]), close(fd[1]));
+		all_cmd(minishell, save, cmd);
 		cmd = cmd->next;
-	}
-	if (cmd)
-	{
-		cmd->pid = fork();
-		if (cmd->pid == -1)
-			return (-1);
-		if (cmd->pid == 0)
-		{
-			(close(save[0]), close(save[1]));
-			if (is_a_builtin(cmd->arguments) == true)
-				exit(builtins(minishell, cmd->arguments));
-			ft_tabupdate(minishell);
-			excute(cmd->arguments, minishell->envp, minishell);
-		}
 	}
 	cmd = minishell->command;
 	while (cmd)
@@ -360,5 +94,3 @@ bool	exec(t_minishell *minishell)
 	(close(save[0]), close(save[1]));
 	return (0);
 }
-
-// jouvre les pipes

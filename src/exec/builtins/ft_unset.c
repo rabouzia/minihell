@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:27 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 18:14:36 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:06:52 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,29 @@ bool	delete_node(t_env **env, char *to_delete)
 	else
 		remove_node(*env, to_delete);
 	return (1);
+}
+
+void	ft_tabupdate(t_minishell *minishell)
+{
+	t_env	*env;
+	t_env	*tmp;
+	int		i;
+
+	env = minishell->env;
+	tmp = env;
+	i = 1;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	minishell->envp = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env)
+	{
+		minishell->envp[i] = ft_strjoin3(env->key, "=", env->value);
+		i++;
+		env = env->next;
+	}
+	minishell->envp[i] = 0;
 }

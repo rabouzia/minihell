@@ -9,6 +9,7 @@ SRC	     =		src/main.c							\
 				src/parsing/tokenization.c			\
 				src/parsing/tokenization_utils.c	\
 				src/expand/expand.c					\
+				src/exec/pipex.c					\
 				src/exec/exec.c						\
 				src/exec/builtins.c					\
 				src/exec/builtins/ft_cd.c			\
@@ -27,6 +28,7 @@ SRC	     =		src/main.c							\
 				src/lib/string.c					\
 				src/lib/export.c					\
 				src/lib/string2.c					\
+				src/lib/string3.c					\
 				src/lib/tab.c						\
 				src/lib/token.c						\
 				src/lib/env.c						\
