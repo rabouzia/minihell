@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/13 22:52:06 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:46:19 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,51 @@ void	open_input(t_redir *redir, t_minishell *minishell)
 	close(fd);
 }
 
-void	open_redirections(t_command *cmd, t_minishell *minishell)
+void	open_output(t_redir *redir, t_minishell *minishell)
 {
-	t_redir	*redir = cmd->redir;
-	
+	int	fd;
+
+	if (redir->type == OUT)
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (redir->type == APPEND)
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+	{
+		perror(redir->file);
+		ft_end(minishell);
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+}
+
+void	open_heredoc(t_redir *redir, t_minishell *minishell)
+{
+	int	fd;
+
+	(void)minishell;
+	fd = open(redir->file, O_RDONLY);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+int	open_redirections(t_command *cmd, t_minishell *minishell)
+{
+	t_redir	*redir;
+
+	(void)minishell;
+	redir = cmd->redir;
 	while (redir != NULL)
 	{
 		if (redir->type == HEREDOC)
-			{ /* open heredoc */ }
+			open_heredoc(redir, minishell);
 		else if (redir->type == IN)
-			{ /* open input */ }
+			open_input(redir, minishell);
 		else
-			{ /* open output */ }
+			open_output(redir, minishell);
 		redir = redir->next;
 	}
-	return (EXIT_SUCCESS)
+	return (EXIT_SUCCESS);
 }
 
 int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
@@ -59,7 +89,7 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 			dup2(fd[1], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));
 		(close(fd[0]), close(fd[1]));
-		open_redirections(cmd);
+		open_redirections(cmd, minishell);
 		if (is_a_builtin(cmd->arguments) == true)
 			exit(builtins(minishell, cmd->arguments));
 		ft_tabupdate(minishell);
@@ -72,7 +102,7 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 
 bool	exec(t_command *cmd, t_minishell *minishell)
 {
-	int save[2];
+	int	save[2];
 
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);

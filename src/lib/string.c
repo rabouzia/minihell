@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:50:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 14:55:11 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:19:05 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_strdup(char *str)
 {
 	char	*res;
 	int		i;
-
+	
 	if (!str)
 		return (NULL);
 	res = malloc(sizeof(char) * ft_strlen(str) + 1);
