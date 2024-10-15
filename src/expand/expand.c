@@ -6,13 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:09:01 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 13:36:28 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:38:32 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-int change_quote(char quote, int i)
+int	change_quote(char quote, int i)
 {
 	if (quote == '\'' && i == 0)
 		return (1);
@@ -22,7 +22,7 @@ int change_quote(char quote, int i)
 		return (0);
 }
 
-int get_value_len(char *key, t_env *env)
+int	get_value_len(char *key, t_env *env)
 {
 	if (!key)
 		return (0);
@@ -35,7 +35,7 @@ int get_value_len(char *key, t_env *env)
 	return (0);
 }
 
-char *get_value_env(char *key, t_env *env)
+char	*get_value_env(char *key, t_env *env)
 {
 	if (!key)
 		return (0);
@@ -48,17 +48,21 @@ char *get_value_env(char *key, t_env *env)
 	return (NULL);
 }
 
-int get_env_size(char *str, int *i, t_minishell *minishell)
+int	get_env_size(char *str, int *i, t_minishell *minishell)
 {
-	char c;
-	int start;
-	int len;
-	// if (str[*i + 1] == '?')
-	// {
-	// 	*i += 2;
-	// 	return (ft_strlen(ft_itoa(minishell->state)));
-	// }
-	if (!is_env_valid(str[*i + 1], 1))
+	char	c;
+	int		start;
+	int		len;
+	char	*ibaby;
+
+	if (str[*i + 1] == '?')
+	{
+		ibaby = ft_itoa(minishell->state);
+		len = ft_strlen(ibaby);
+		(*i) += 2;
+		return (free(ibaby), len);
+	}
+	if (!is_env_valid(str[(*i) + 1], 1))
 		return ((*i)++, 1);
 	start = ++(*i);
 	while (is_env_valid(str[*i], 0))
@@ -73,18 +77,18 @@ int get_env_size(char *str, int *i, t_minishell *minishell)
 	return (len);
 }
 
-int get_expanded_len(char *str, t_minishell *minishell)
+int	get_expanded_len(char *str, t_minishell *minishell)
 {
-	int len;
-	int i;
-	int quote_index;
+	int	len;
+	int	i;
+	int	quote_index;
 
 	len = 0;
 	i = 0;
 	quote_index = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && quote_index != 2)	
+		if (str[i] == '\'' && quote_index != 2)
 			quote_index = change_quote(str[i++], quote_index);
 		else if (str[i] == '"' && quote_index != 1)
 			quote_index = change_quote(str[i++], quote_index);
@@ -101,21 +105,38 @@ int get_expanded_len(char *str, t_minishell *minishell)
 	}
 	return (len);
 }
+/*
 
-// if (str[*i + 1] == '?')
-	// {
-	// 	*i += 2;
-	//	ft_strncat(expanded, ft_itoa(minishell->state), ft_strlen(ft_itoa(minishell->state)));
-	//	return ;
-	// }
-	// printf("ici\n");
-	
+	printf("ici\n");
+	if (str[*i + 1] == '?')
+	{
+		(*i) += 2;
+		printf("%d",ft_strlen(ft_itoa(minishell->state)) );
+		minishell->state = 0;
+		return (ft_strlen(ft_itoa(minishell->state)));
+	}*/
+
 void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
 {
-	char c;
-	char *value;
-	int start;
-	
+	char	c;
+	char	*value;
+	int		start;
+	char	*st;
+
+	st = NULL;
+	if (str[*i + 1] == '?')
+	{
+		st = ft_itoa(minishell->state);
+		if (!st)
+		{
+			ft_end(minishell);
+			exit(EXIT_FAILURE);
+		}
+		*i += 2;
+		ft_strncat(expanded, st, ft_strlen(st));
+		free(st);
+		return ;
+	}
 	if (!is_env_valid(str[*i + 1], 1))
 	{
 		ft_strncat(expanded, str + (*i)++, 1);
@@ -128,7 +149,7 @@ void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
 	str[*i] = 0;
 	value = get_value_env(str + start, minishell->env);
 	if (!value)
-		return;
+		return ;
 	ft_strncat(expanded, value, ft_strlen(value));
 	str[*i] = c;
 	return ;
@@ -136,11 +157,12 @@ void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
 
 char	*expand(char *str, t_minishell *minishell)
 {
-	char *expanded;
-	int i;
-	int quote_index;
+	char	*expanded;
+	int		i;
+	int		quote_index;
+	int		len;
 
-	int len = get_expanded_len(str, minishell);
+	len = get_expanded_len(str, minishell);
 	expanded = malloc(len + 1);
 	if (!expanded)
 		return (NULL);
@@ -163,7 +185,6 @@ char	*expand(char *str, t_minishell *minishell)
 	}
 	return (expanded);
 }
-
 
 //  fsdfd'df  s$sdfsd'"sdf$HOME$USER"vg
 //  fsdfddf s$sdfsdsdfpath_to_homerabouziavg

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/14 19:17:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:46:49 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*cmd_finder(char **cmd, char **env)
 	char	*slash;
 
 	result = NULL;
+	if (cmd[0][0] == '\0')
+		return (free_tab(env), NULL);
 	slash = ft_strjoin("/", cmd[0]);
 	if (!slash)
 		return (NULL);
@@ -34,7 +36,6 @@ char	*cmd_finder(char **cmd, char **env)
 			result = ft_strdup(tmp);
 			if (!result)
 				return (free(tmp), free(result), NULL);
-	
 		}
 		free(tmp);
 		i++;

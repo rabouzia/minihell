@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:16 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 18:59:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:38:59 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	ft_exit(t_minishell *minishell, char **arg)
 		{
 			ex = ft_atoi(arg[1]);
 			ft_end(minishell);
-			exit(ex);
+			exit(ex % 256);
 		}
 		str++;
 	}

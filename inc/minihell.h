@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/13 22:50:03 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:43:54 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define MINIHELL_H
 
 # include <dirent.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,7 +28,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 // token
 
@@ -194,6 +195,8 @@ int						ft_strlen(char *str);
 
 char					*ft_strdup(char *str);
 
+void					ft_signal(void);
+
 char					*ft_substr(char *s, unsigned int start, int len);
 
 int						ft_strcmp(char *s1, char *s2);
@@ -223,6 +226,8 @@ int						search_env(t_env *env, char *key);
 int						ft_strchr(char *str, char c);
 
 bool					delete_node(t_env **env, char *to_delete);
+
+char					*ft_itoa(int n);
 
 void					remove_first(t_env **env);
 

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/13 17:37:32 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:39:27 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ int	main(int ac, char **av, char **env)
 	char		*input;
 	t_minishell	minishell;
 
-	(void)ac;
-	(void)av;
+	free(((void)ac, (void)av, NULL));
 	minishell = (t_minishell){0};
 	if (!init_env(env, &minishell))
 		return (1);
+	free((minishell.state = 0, ft_signal(), NULL));
 	while (1)
 	{
-		// minishell.tabenv = ;
 		minishell.token = NULL;
 		input = readline("🔥$> ");
 		if (!input)
@@ -33,18 +32,14 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		else
 			add_history(input);
-		// printf("input: %s\n", input);
 		if (!parsing(input, &minishell))
 			continue ;
 		exec(minishell.command, &minishell);
-		ft_tokenclear(&minishell.token);
-		ft_commandclear(&minishell.command);
-		minishell.token = 0;
-		minishell.command = 0;
+		(ft_tokenclear(&minishell.token), ft_commandclear(&minishell.command));
+		free((minishell.token = 0, minishell.command = 0, NULL));
 	}
-	ft_envclear(&minishell.env);
-	return (0);
+	return (ft_envclear(&minishell.env), 0);
 }
 
-
-// update char **env
+// heredoc + signaux heredoc
+// ouvrir les fd dans les builtins

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 00:14:23 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/11 18:42:46 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:51:21 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	builtins(t_minishell *minishell, char **arg)
 {
+	// open fd file
 	if (arg == NULL || arg[0] == NULL)
 		return (0);
 	if (ft_strncmp("cd", arg[0], 2) == 0)

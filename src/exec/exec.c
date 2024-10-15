@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/14 17:46:19 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:25:52 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,26 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 	(close(fd[0]), close(fd[1]));
 	return (1);
 }
+int	wait_for_child(t_minishell *minishell)
+{
+	int		status[2];
+	pid_t	r_waitpid;
+
+	while (1)
+	{
+		r_waitpid = waitpid(-1, &status[0], 0);
+		if (r_waitpid == -1)
+			break ;
+		if (r_waitpid == minishell->command->pid)
+			status[1] = status[0];
+	}
+	if (WIFEXITED(status[1]))
+		return (WEXITSTATUS(status[1]));
+	else if (WIFSIGNALED(status[1]))
+		return (WTERMSIG(status[1]) + 128);
+	return (0);
+}
+
 
 bool	exec(t_command *cmd, t_minishell *minishell)
 {
@@ -116,7 +136,14 @@ bool	exec(t_command *cmd, t_minishell *minishell)
 	cmd = minishell->command;
 	while (cmd)
 	{
-		waitpid(cmd->pid, NULL, 0);
+		waitpid(cmd->pid, &minishell->state, 0);
+		if (WIFEXITED(minishell->state))
+			minishell->state = WEXITSTATUS(minishell->state);
+		else if (WIFSIGNALED(minishell->state))
+			minishell->state = 128 + WTERMSIG(minishell->state);
+		else if (WIFSTOPPED(minishell->state))
+			minishell->state = 128 + WSTOPSIG(minishell->state);
+		// wait_for_child(minishell);
 		cmd = cmd->next;
 	}
 	dup2(save[STDIN_FILENO], STDIN_FILENO);
