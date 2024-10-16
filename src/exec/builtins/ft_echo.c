@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:08 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 16:19:16 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:50:50 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	good_flag(const char *str)
 	return (1);
 }
 
-bool	ft_echo(t_minishell *minishell, char **arg)
+int	ft_echo(t_minishell *minishell, char **arg)
 {
 	int	flag;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/15 20:39:27 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:34:45 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,6 @@ int	main(int ac, char **av, char **env)
 
 // heredoc + signaux heredoc
 // ouvrir les fd dans les builtins
+// exit code des builtins
+// ctrl-c dans cat -> double prompt
+// echo machin | cat | cat | cat | cat -> leak

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramzerk <ramzerk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:12 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/06 01:45:36 by ramzerk          ###   ########.fr       */
+/*   Updated: 2024/10/16 13:50:56 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool ft_env(t_minishell *minishell, char **arg)
+int ft_env(t_minishell *minishell, char **arg)
 {
 	(void) arg;
 	env_print(minishell->env);

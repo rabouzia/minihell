@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/15 19:43:54 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:51:54 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <dirent.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -126,21 +127,21 @@ bool					is_a_builtin(char **arg);
 
 bool					exec(t_command *cmd, t_minishell *minishell);
 
-bool					builtins(t_minishell *minishell, char **arg);
+int					builtins(t_minishell *minishell, char **arg);
 
-bool					ft_cd(t_minishell *minishell, char **arg);
+int						ft_cd(t_minishell *minishell, char **arg);
 
-bool					ft_echo(t_minishell *minishell, char **arg);
+int						ft_echo(t_minishell *minishell, char **arg);
 
 int						good_flag(const char *str);
 
-bool					ft_env(t_minishell *minishell, char **arg);
+int						ft_env(t_minishell *minishell, char **arg);
 
 void					env_print(t_env *env);
 
-bool					ft_exit(t_minishell *minishell, char **arg);
+int						ft_exit(t_minishell *minishell, char **arg);
 
-bool					ft_export(t_minishell *minishell, char **arg);
+int						ft_export(t_minishell *minishell, char **arg);
 
 void					export_print(t_env *env);
 
@@ -148,9 +149,9 @@ char					*get_exportkey(char *str);
 
 void					export_create(t_minishell *minishell, char *arg);
 
-bool					ft_pwd(t_minishell *minishell, char **arg);
+int						ft_pwd(t_minishell *minishell, char **arg);
 
-bool					ft_unset(t_minishell *minishell, char **arg);
+int						ft_unset(t_minishell *minishell, char **arg);
 
 void					ft_end(t_minishell *minishell);
 

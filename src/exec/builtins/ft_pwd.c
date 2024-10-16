@@ -6,13 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:23 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/14 17:18:25 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:51:14 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool	ft_pwd(t_minishell *minishell, char **arg)
+int	ft_pwd(t_minishell *minishell, char **arg)
 {
 	char	*pwd;
 

@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"minihell.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"type_traits": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/15 20:25:52 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:55:29 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,23 @@ void	open_output(t_redir *redir, t_minishell *minishell)
 
 void	open_heredoc(t_redir *redir, t_minishell *minishell)
 {
-	int	fd;
+	int			fd;
+	char		*line[2048];
+	int			i;
+	t_command	*cmd;
 
+	cmd = minishell->command;
+	i = 0;
 	(void)minishell;
 	fd = open(redir->file, O_RDONLY);
+	while (1)
+	{
+		line[i] = readline("");
+		printf("here\n");
+		// if (line[i])
+		// break ;
+		i++;
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
@@ -119,7 +132,6 @@ int	wait_for_child(t_minishell *minishell)
 	return (0);
 }
 
-
 bool	exec(t_command *cmd, t_minishell *minishell)
 {
 	int	save[2];
@@ -143,7 +155,6 @@ bool	exec(t_command *cmd, t_minishell *minishell)
 			minishell->state = 128 + WTERMSIG(minishell->state);
 		else if (WIFSTOPPED(minishell->state))
 			minishell->state = 128 + WSTOPSIG(minishell->state);
-		// wait_for_child(minishell);
 		cmd = cmd->next;
 	}
 	dup2(save[STDIN_FILENO], STDIN_FILENO);

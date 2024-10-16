@@ -6,13 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:27 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/13 17:06:52 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:34:28 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool	ft_unset(t_minishell *minishell, char **arg)
+int	ft_unset(t_minishell *minishell, char **arg)
 {
 	int	i;
 
@@ -23,7 +23,8 @@ bool	ft_unset(t_minishell *minishell, char **arg)
 	{
 		if (!delete_node(&minishell->env, arg[i]))
 			i++;
-		i++;
+		else
+			i++;
 	}
 	return (1);
 }
@@ -35,7 +36,7 @@ bool	delete_node(t_env **env, char *to_delete)
 
 	len = count_env(*env);
 	flag = search_env(*env, to_delete);
-	if (!flag)
+	if (flag == 0)
 		return (0);
 	if (flag == 1)
 		remove_first(env);
@@ -48,9 +49,9 @@ bool	delete_node(t_env **env, char *to_delete)
 
 void	ft_tabupdate(t_minishell *minishell)
 {
-	t_env	*env;
-	t_env	*tmp;
-	int		i;
+	t_env *env;
+	t_env *tmp;
+	int i;
 
 	env = minishell->env;
 	tmp = env;

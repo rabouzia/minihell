@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:48:29 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/08 18:50:38 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:30:20 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	export_print(t_env *env)
 	while (env)
 	{
 		if (!env->value)
-			printf("declare -x %s\n", env->key);
+			printf("export %s\n", env->key);
 		else
-			printf("declare -x %s=%s\n", env->key, env->value);
+			printf("export %s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 }
