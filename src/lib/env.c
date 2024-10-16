@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:32:39 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 19:04:04 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:16:38 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	ft_envclear(t_env **env)
 	}
 }
 
-
 bool	init_env(char **env, t_minishell *minishell)
 {
-	int i = 0;
+	int		i;
+	t_env	*env_t;
 
-	t_env *env_t;
+	i = 0;
 	while (env[i])
 	{
 		env_t = ft_envnew(get_key(env[i]), get_value(env[i]));

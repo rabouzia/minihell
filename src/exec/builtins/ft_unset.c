@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:27 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 14:34:28 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:09:02 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ bool	delete_node(t_env **env, char *to_delete)
 
 void	ft_tabupdate(t_minishell *minishell)
 {
-	t_env *env;
-	t_env *tmp;
-	int i;
+	t_env	*env;
+	t_env	*tmp;
+	int		i;
 
 	env = minishell->env;
 	tmp = env;

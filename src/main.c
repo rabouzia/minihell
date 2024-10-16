@@ -6,12 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 19:01:16 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:07:55 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-volatile sig_atomic_t g_signal = 0;
+
+volatile sig_atomic_t	g_signal = 0;
 
 int	main(int ac, char **av, char **env)
 {
@@ -34,7 +35,7 @@ int	main(int ac, char **av, char **env)
 		{
 			minishell.state = g_signal;
 			g_signal = 0;
-			continue;
+			continue ;
 		}
 		if (!input)
 			break ;

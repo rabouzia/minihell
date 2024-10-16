@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:54:04 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 19:02:35 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:08:36 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_commandaddback(t_command **head, t_command *new)
 t_command	*ft_commandnew(char **tab, t_redir *redir)
 {
 	t_command	*cmd;
+
 	cmd = malloc(sizeof(t_command));
 	if (!cmd)
 		return (NULL);

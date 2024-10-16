@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:11 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 17:44:54 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:08:23 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,3 @@ int	parsing(char *input, t_minishell *minishell)
 	}
 	return (1);
 }
-
-// ls "-l ls df as"

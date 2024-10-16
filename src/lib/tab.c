@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 20:10:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 18:29:38 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:16:03 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	print_tab(char **tab)
 		printf("%s, ", tab[i]);
 		i++;
 	}
-	// printf("\n");
 }
 
 int	tab_len(char **tab)

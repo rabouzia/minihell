@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:22:13 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/11 19:02:15 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:15:15 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	tokenization(char *input, t_minishell *minishell)
 	bool	success;
 
 	i = 0;
-	while (0 [input + i]) // hihi
+	while (0 [input + i])
 	{
 		if (skip_spaces(input, &i))
 			break ;
@@ -48,10 +48,6 @@ bool	tokenization(char *input, t_minishell *minishell)
 			success = add_word(input, &i, minishell);
 		if (!success)
 			return (0);
-		// printf("%c", input[i]);
-		// print_command(minishell->command);
-		// print_token(minishell->token);
-		
 	}
 	return (1);
 }

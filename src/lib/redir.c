@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:56:35 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 18:35:34 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:08:33 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_redir	*ft_redirlast(t_redir *head)
 
 void	ft_redirclear(t_redir *redir)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 
 	while (redir)
 	{

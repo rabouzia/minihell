@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 18:12:41 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:09:27 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ char	*cmd_finder(char **cmd, char **env)
 		free(tmp);
 		i++;
 	}
-	// if (!env[i])
-	// 	return (free(result), free(slash), free_tab(env), NULL);
 	return (free_tab(env), free(slash), result);
 }
 
@@ -69,9 +67,9 @@ void	error_msg(char *path, char **cmd, t_minishell *minishell)
 
 void	excute(char **cmd, char **env, t_minishell *minishell)
 {
-	int i;
-	char *path;
-	char **tmp_path;
+	int		i;
+	char	*path;
+	char	**tmp_path;
 
 	tmp_path = NULL;
 	path = NULL;

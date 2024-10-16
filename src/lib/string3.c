@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/13 17:14:29 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:11:09 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (og_tmp);
 }
 
-
-
 static int	word_count(char const *s, char c)
 {
 	int	count;
@@ -118,7 +116,6 @@ static char	*copy_next_word(char const *s, char c, int *i)
 	word[j] = '\0';
 	return (word);
 }
-
 
 char	**ft_split(char const *s, char c)
 {

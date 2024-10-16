@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:46:32 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/30 20:10:17 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:15:36 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,6 @@ bool	add_redir_simple(char *input, int *i, t_minishell *minishell)
 	(*i)++;
 	return (1);
 }
-
-// if (input[i] == '"' || input[i] == '\'')
-// {
-// 	quote = input[i];
-// 	len++;
-// 	while (input[++i] != quote)
-// 	{
-// 		len++;
-// 	}
-// 	len++;
-// }
 
 int	get_len_word(char *input, int i)
 {

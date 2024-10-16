@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 00:14:23 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 18:13:27 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:17:22 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	exec_builtins(t_minishell *minishell, char **arg)
 {
-	// open fd file
 	if (ft_strcmp("cd", arg[0]) == 0)
 		return (ft_cd(minishell, arg));
 	if (ft_strcmp("echo", arg[0]) == 0)
@@ -31,10 +30,10 @@ int	exec_builtins(t_minishell *minishell, char **arg)
 		return (0);
 }
 
-int builtins(t_minishell *minishell, t_command *cmd)
+int	builtins(t_minishell *minishell, t_command *cmd)
 {
 	int	save[2];
-	int status;
+	int	status;
 
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
 	save[STDOUT_FILENO] = dup(STDOUT_FILENO);
@@ -45,7 +44,6 @@ int builtins(t_minishell *minishell, t_command *cmd)
 		dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));
 		free_all_heredoc(minishell->command);
-		
 		return (ft_exit(minishell, cmd->arguments));
 	}
 	status = exec_builtins(minishell, cmd->arguments);

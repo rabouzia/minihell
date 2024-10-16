@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:48:29 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 14:30:20 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:09:08 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	search_env(t_env *env, char *key)
 {
-	int i;
+	int	i;
+
 	i = 1;
 	while (env)
 	{

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:09:01 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/15 20:38:32 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:11:37 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	get_env_size(char *str, int *i, t_minishell *minishell)
 	start = ++(*i);
 	while (is_env_valid(str[*i], 0))
 	{
-		// printf("i : %d\n", *i);
 		(*i)++;
 	}
 	c = str[*i];
@@ -105,16 +104,6 @@ int	get_expanded_len(char *str, t_minishell *minishell)
 	}
 	return (len);
 }
-/*
-
-	printf("ici\n");
-	if (str[*i + 1] == '?')
-	{
-		(*i) += 2;
-		printf("%d",ft_strlen(ft_itoa(minishell->state)) );
-		minishell->state = 0;
-		return (ft_strlen(ft_itoa(minishell->state)));
-	}*/
 
 void	get_env_value(char *str, char *expanded, int *i, t_minishell *minishell)
 {
@@ -185,6 +174,3 @@ char	*expand(char *str, t_minishell *minishell)
 	}
 	return (expanded);
 }
-
-//  fsdfd'df  s$sdfsd'"sdf$HOME$USER"vg
-//  fsdfddf s$sdfsdsdfpath_to_homerabouziavg

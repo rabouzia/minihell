@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 18:58:11 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:19:33 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	open_output(t_redir *redir, t_minishell *minishell)
 	close(fd);
 }
 
-void free_all_heredoc(t_command *cmd)
+void	free_all_heredoc(t_command *cmd)
 {
 	while (cmd)
 	{
@@ -66,7 +66,9 @@ void	open_heredoc(t_redir *redir, t_minishell *minishell)
 	(void)minishell;
 	if (pipe(fd) == -1)
 	{
-		// print error and exit
+		printf("pipe error :");
+		ft_end(minishell);
+		exit(-1);
 	}
 	while (redir->heredoc_content && redir->heredoc_content[i])
 	{
@@ -100,7 +102,7 @@ int	open_redirections(t_command *cmd, t_minishell *minishell)
 int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 {
 	int	fd[2];
-	int status;
+	int	status;
 
 	if (pipe(fd) == -1)
 		return (1);
@@ -109,7 +111,8 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 		return (close(fd[0]), close(fd[1]), -1);
 	if (cmd->pid == 0)
 	{
-		(signal(SIGINT, SIG_DFL), signal(SIGSTOP, SIG_DFL), signal(SIGTSTP, SIG_DFL));
+		(signal(SIGINT, SIG_DFL), signal(SIGSTOP, SIG_DFL), signal(SIGTSTP,
+				SIG_DFL));
 		if (cmd->next)
 			dup2(fd[1], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));

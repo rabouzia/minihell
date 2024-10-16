@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 16:42:26 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:09:06 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ int	ft_export(t_minishell *minishell, char **arg)
 	i = 1;
 	while (arg[i])
 	{
-		
-			if (!export_rule(arg[i]))
-			{
-				printf("bash: export: `%s': not a valid identifier\n", arg[i]);
-				i++;
-				minishell->state = 1;
-				continue ;
-			}
-			export_create(minishell, arg[i]);
+		if (!export_rule(arg[i]))
+		{
+			printf("bash: export: `%s': not a valid identifier\n", arg[i]);
+			i++;
+			minishell->state = 1;
+			continue ;
+		}
+		export_create(minishell, arg[i]);
 		i++;
 	}
 	return (minishell->state);
