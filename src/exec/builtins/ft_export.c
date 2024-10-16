@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 14:28:56 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:42:26 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	export_rule(char *str)
 	i = 0;
 	if (str[0] != '_' && ft_isalpha(str[0]) != 1)
 		return (0);
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
 		if (str[i] != '_' && ft_isalpha(str[i]) != 1 && ft_isnum(str[i]) != 1)
 			return (0);
@@ -32,24 +32,27 @@ int	ft_export(t_minishell *minishell, char **arg)
 {
 	int	i;
 
+	minishell->state = 0;
 	if (!arg[1])
 	{
 		export_print(minishell->env);
-		return (1);
+		return (minishell->state);
 	}
 	i = 1;
 	while (arg[i])
 	{
-		if (!export_rule(arg[i]))
-		{
-			printf("bash: export: `%s': not a valid identifier\n", arg[i]);
-			i++;
-			continue ;
-		}
-		export_create(minishell, arg[i]);
+		
+			if (!export_rule(arg[i]))
+			{
+				printf("bash: export: `%s': not a valid identifier\n", arg[i]);
+				i++;
+				minishell->state = 1;
+				continue ;
+			}
+			export_create(minishell, arg[i]);
 		i++;
 	}
-	return (1);
+	return (minishell->state);
 }
 
 void	export_create(t_minishell *minishell, char *arg)

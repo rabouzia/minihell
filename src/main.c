@@ -6,26 +6,36 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 14:34:45 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:10:03 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
+volatile sig_atomic_t g_signal = 0;
 
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_minishell	minishell;
 
+	if (!isatty(0))
+		return (printf("tty required!!\n"), 1);
 	free(((void)ac, (void)av, NULL));
 	minishell = (t_minishell){0};
 	if (!init_env(env, &minishell))
 		return (1);
-	free((minishell.state = 0, ft_signal(), NULL));
+	minishell.state = 0;
 	while (1)
 	{
+		ft_signal();
 		minishell.token = NULL;
 		input = readline("🔥$> ");
+		if (g_signal != 0)
+		{
+			minishell.state = g_signal;
+			g_signal = 0;
+			continue;
+		}
 		if (!input)
 			break ;
 		if (!*input)
@@ -42,7 +52,4 @@ int	main(int ac, char **av, char **env)
 }
 
 // heredoc + signaux heredoc
-// ouvrir les fd dans les builtins
-// exit code des builtins
-// ctrl-c dans cat -> double prompt
-// echo machin | cat | cat | cat | cat -> leak
+// exit code des builtins -> return le state dans tte les builtins

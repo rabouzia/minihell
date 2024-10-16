@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:11 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/15 20:45:00 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:44:54 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ bool	check_quotes(char *input)
 int	parsing(char *input, t_minishell *minishell)
 {
 	if (!check_quotes(input))
-		return (dprintf(2, "Error : open quotes\n"), 0);
+		return (printf("Error : open quotes\n"), 0);
 	if (!tokenization(input, minishell))
 		return (0);
 	if (!syntax_analysis(minishell))
-		return (dprintf(2,"Error : syntax error\n"), 0);
+		return (printf("Error : syntax error\n"), 0);
 	if (!tidying(minishell))
 	{
 		ft_tokenclear(&minishell->token);

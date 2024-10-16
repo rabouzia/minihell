@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 13:51:54 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:50:17 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <unistd.h>
 
 // token
+extern volatile sig_atomic_t g_signal;
 
 typedef enum e_token_type
 {
@@ -60,6 +61,7 @@ typedef struct s_redir
 {
 	char				*file;
 	t_redir_type		type;
+	
 	struct s_redir		*next;
 }						t_redir;
 
@@ -127,7 +129,9 @@ bool					is_a_builtin(char **arg);
 
 bool					exec(t_command *cmd, t_minishell *minishell);
 
-int					builtins(t_minishell *minishell, char **arg);
+int						builtins(t_minishell *minishell, t_command *cmd);
+
+int						open_redirections(t_command *cmd, t_minishell *minishell);
 
 int						ft_cd(t_minishell *minishell, char **arg);
 

@@ -2,6 +2,8 @@
 	"files.associations": {
 		"minihell.h": "c",
 		"readline.h": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"termios.h": "c",
+		"limits.h": "c"
 	}
 }

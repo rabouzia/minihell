@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:23 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 13:51:14 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:52:53 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	ft_pwd(t_minishell *minishell, char **arg)
 	if (!pwd)
 		return (0);
 	printf("%s\n", pwd);
+	free(pwd);
 	return (1);
 }
