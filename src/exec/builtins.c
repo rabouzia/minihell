@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 00:14:23 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 17:13:56 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:13:27 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@ int builtins(t_minishell *minishell, t_command *cmd)
 		dup2(save[STDIN_FILENO], STDIN_FILENO);
 		dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));
+		free_all_heredoc(minishell->command);
+		
 		return (ft_exit(minishell, cmd->arguments));
 	}
 	status = exec_builtins(minishell, cmd->arguments);
 	dup2(save[STDIN_FILENO], STDIN_FILENO);
 	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
+	free_all_heredoc(minishell->command);
 	return (status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/15 15:46:49 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:12:41 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 	}
 	if (!path)
 		error_msg(path, cmd, minishell);
+	free_all_heredoc(minishell->command);
 	execve(path, cmd, env);
 	error_msg(path, cmd, minishell);
 	exit(0);

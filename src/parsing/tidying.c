@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:08:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/13 17:13:04 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:51:52 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	handle_token(t_token **token, t_command *cmd, t_minishell *minishell)
 	}
 	else
 	{
-		redir = ft_redirnew(expand((*token)->next->str, minishell), find_redir_type((*token)->str));
+		redir = ft_redirnew(expand((*token)->next->str, minishell), find_redir_type((*token)->str), minishell);
 		if (!redir)
 			return (0);
 		ft_rediraddback(&(cmd->redir), redir);
@@ -63,6 +63,7 @@ bool	tidying(t_minishell *minishell)
 			{
 				free_tab(cmd->arguments);
 				ft_redirclear(cmd->redir);
+				free(cmd);
 				return (0);
 			}
 		}

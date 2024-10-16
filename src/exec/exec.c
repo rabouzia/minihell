@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 17:15:13 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:58:11 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,37 @@ void	open_output(t_redir *redir, t_minishell *minishell)
 	close(fd);
 }
 
+void free_all_heredoc(t_command *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->redir && cmd->redir->heredoc_content)
+			free_tab(cmd->redir->heredoc_content);
+		cmd = cmd->next;
+	}
+}
+
 void	open_heredoc(t_redir *redir, t_minishell *minishell)
 {
-	int			fd;
-	char		*line[2048];
+	int			fd[2];
 	int			i;
 	t_command	*cmd;
 
 	cmd = minishell->command;
 	i = 0;
 	(void)minishell;
-	fd = open(redir->file, O_RDONLY);
-	while (1)
+	if (pipe(fd) == -1)
 	{
-		line[i] = readline("");
-		printf("here\n");
-		// if (line[i])
-		// break ;
+		// print error and exit
+	}
+	while (redir->heredoc_content && redir->heredoc_content[i])
+	{
+		ft_putendl_fd(redir->heredoc_content[i], fd[1]);
 		i++;
 	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
 }
 
 int	open_redirections(t_command *cmd, t_minishell *minishell)
@@ -105,6 +115,11 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 		(close(save[0]), close(save[1]));
 		(close(fd[0]), close(fd[1]));
 		open_redirections(cmd, minishell);
+		if (cmd->arguments == NULL)
+		{
+			ft_end(minishell);
+			exit(EXIT_SUCCESS);
+		}
 		if (is_a_builtin(cmd->arguments) == true)
 		{
 			status = builtins(minishell, cmd);
@@ -152,6 +167,7 @@ bool	exec(t_command *cmd, t_minishell *minishell)
 		cmd = cmd->next;
 	}
 	cmd = minishell->command;
+	free_all_heredoc(minishell->command);
 	while (cmd)
 	{
 		waitpid(cmd->pid, &minishell->state, 0);

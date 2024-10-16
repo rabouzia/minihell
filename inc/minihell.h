@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/16 17:50:17 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:13:53 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_redir
 {
 	char				*file;
 	t_redir_type		type;
-	
+	char				**heredoc_content;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -268,11 +268,13 @@ t_command				*ft_commandlast(t_command *head);
 
 void					ft_commandclear(t_command **cmd);
 
+void					free_all_heredoc(t_command *cmd);
+
 // command #######
 
 void					ft_rediraddback(t_redir **head, t_redir *new);
 
-t_redir					*ft_redirnew(char *str, t_redir_type type);
+t_redir					*ft_redirnew(char *str, t_redir_type type, t_minishell *minishell);
 
 t_redir					*ft_redirlast(t_redir *head);
 
