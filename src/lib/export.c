@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:48:29 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:09:08 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:20:59 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	modify_value(t_env *env, char *key, char *value)
 {
 	while (ft_strcmp(env->key, key) != 0)
 		env = env->next;
+	free(key);
+	free(env->value);
 	env->value = value;
 }

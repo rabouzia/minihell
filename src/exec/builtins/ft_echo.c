@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:08 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 13:50:50 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:46:48 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ int	ft_echo(t_minishell *minishell, char **arg)
 	i = 1;
 	if (!arg[1])
 		return (printf("\n"), 0);
-	flag = good_flag(arg[1]);
-	if (flag == 1)
-		i++;
 	while (arg[i])
 	{
-		printf("%s", arg[i]);
-		if (arg[i + 1] != NULL)
-			printf(" ");
-		i++;
+		flag = good_flag(arg[i]);
+		if (flag == 1)
+			i++;
+		else
+		{
+			printf("%s", arg[i]);
+			if (arg[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
 	}
 	if (flag == 0)
 		printf("\n");
