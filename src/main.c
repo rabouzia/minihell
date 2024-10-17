@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/17 15:28:49 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:04:31 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int	main(int ac, char **av, char **env)
 	{
 		ft_signal();
 		minishell.token = NULL;
+		if (minishell.state == 130)
+		{
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			printf("\n");
+		}
 		input = readline("🔥$> ");
 		if (g_signal != 0)
 		{
@@ -55,17 +61,5 @@ int	main(int ac, char **av, char **env)
 // exit code des builtins -> return le state dans tte les builtins
 
 /* 
-
-4."si on fait un commande apres avoir ctrl-C un programme ca fait rien
-et apres ca re marche
-genre :
-$> cat
-CTRL-C
-$> ls
-$> ls
-et le deuxieme ls marche
-mais pas le premier"
-ca va c'est pas des dingueries"
-faire un signal handler pour les childs
 
 5."exit -10 ca marche pas"*/

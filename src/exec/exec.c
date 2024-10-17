@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/17 14:31:52 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:56:50 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ int	open_redirections(t_command *cmd, t_minishell *minishell)
 	return (EXIT_SUCCESS);
 }
 
+void	set_signal_child(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGPIPE, SIG_IGN);
+}
+
 int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 {
 	int	fd[2];
@@ -111,8 +118,7 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 		return (close(fd[0]), close(fd[1]), -1);
 	if (cmd->pid == 0)
 	{
-		(signal(SIGINT, SIG_DFL), signal(SIGSTOP, SIG_DFL), signal(SIGTSTP,
-				SIG_DFL));
+		set_signal_child();
 		if (cmd->next)
 			dup2(fd[1], STDOUT_FILENO);
 		(close(save[0]), close(save[1]));
@@ -160,6 +166,7 @@ bool	exec(t_command *cmd, t_minishell *minishell)
 {
 	int	save[2];
 
+	signal(SIGINT, SIG_IGN);
 	if (!cmd->next && is_a_builtin(cmd->arguments))
 		return (builtins(minishell, cmd), 1);
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
