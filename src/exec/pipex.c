@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 18:02:39 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:24:03 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*cmd_finder(char **cmd, char **env, char *result)
 void	error_msg(char *path, char **cmd, t_minishell *minishell)
 {
 	(void)minishell;
-	if ((!path ||path )&& ft_strchr(cmd[0], '/') != 0)
+	if ((!path || path) && ft_strchr(cmd[0], '/') != 0)
 		ft_putstr_fd("No such file or directory : ", 2);
 	else if (!path)
 		ft_putstr_fd("command not found: ", 2);

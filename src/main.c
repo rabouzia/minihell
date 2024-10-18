@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/18 17:46:10 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:04:37 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(int ac, char **av, char **env)
 	t_minishell	minishell;
 
 	input = NULL;
-	// if (!isatty(0))
-	// 	return (printf("tty required!!\n"), 1);
+	if (!isatty(0))
+		return (printf("tty required!!\n"), 1);
 	(void)ac;
 	(void)av;
 	minishell = (t_minishell){0};
@@ -61,9 +61,3 @@ int	main(int ac, char **av, char **env)
 	ft_envclear(&minishell.env);
 	return (0);
 }
-
-// exit code des builtins -> return le state dans tte les builtins
-
-/*
-
-5."exit -10 ca marche pas"*/

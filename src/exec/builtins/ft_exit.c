@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:16 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 18:07:14 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:37:00 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ int	too_many(t_minishell *minishell)
 	return (1);
 }
 
+bool	is_valid_exit(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (ft_isnum(str[i]))
+			i++;
+		else
+			return (false);
+	}
+	return (true);
+}
+
 int	ft_exit(t_minishell *minishell, char **arg)
 {
 	char	*str;
@@ -53,7 +70,7 @@ int	ft_exit(t_minishell *minishell, char **arg)
 	str = arg[1];
 	while (*str)
 	{
-		if (!ft_isnum(*str))
+		if (!is_valid_exit(str))
 			exit_value(minishell, arg[1]);
 		if (ft_isnum(*str) && !arg[2])
 		{
