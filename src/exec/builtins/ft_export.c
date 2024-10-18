@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/17 15:20:25 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:09:57 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	export_create(t_minishell *minishell, char *arg)
 		ft_envaddback(&minishell->env, new);
 	else
 	{
-		free(new);		
+		free(new);
 		modify_value(minishell->env, key, value);
 	}
 }

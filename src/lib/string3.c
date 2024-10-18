@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:11:09 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:10:52 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	ft_strlcpy(ret + s1_len, s2, s2_len + 1);
 	ft_strlcpy(ret + s1_len + s2_len, s3, s3_len + 1);
 	return (ret);
-}
-
-size_t	ft_strlcpy(char *dst, char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (size != 0)
-	{
-		while (src[i] && i < size - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
-	}
-	while (src[i])
-		i++;
-	return (i);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -141,10 +122,4 @@ char	**ft_split(char const *s, char c)
 	}
 	split[words] = NULL;
 	return (split);
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	ft_putstr_fd(s, fd);
-	ft_putstr_fd("\n", fd);
 }

@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug2.c                                           :+:      :+:    :+:   */
+/*   token_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 19:09:57 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/09/30 19:19:22 by rabouzia         ###   ########.fr       */
+/*   Created: 2024/10/18 16:55:38 by rabouzia          #+#    #+#             */
+/*   Updated: 2024/10/18 16:55:49 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-void print_env(t_env *env)
+int	get_len_word(char *input, int i)
 {
-	while(env)
+	int		len;
+	char	quote;
+
+	len = 0;
+	while (input[i] && !is_not_word(input[i]))
 	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			quote = input[i];
+			len++;
+			while (input[++i] != quote)
+			{
+				len++;
+			}
+			len++;
+		}
+		len++;
+		i++;
 	}
+	return (len);
 }

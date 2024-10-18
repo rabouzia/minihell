@@ -7,10 +7,13 @@ SRC	     =		src/main.c							\
 				src/parsing/syntax_analysis.c		\
 				src/parsing/tidying.c				\
 				src/parsing/tokenization.c			\
+				src/parsing/token_len.c				\
 				src/parsing/tokenization_utils.c	\
 				src/expand/expand.c					\
+				src/expand/expander.c				\
 				src/exec/pipex.c					\
 				src/exec/exec.c						\
+				src/exec/redir_utils.c				\
 				src/exec/signals.c					\
 				src/exec/builtins.c					\
 				src/exec/builtins/ft_cd.c			\
@@ -22,9 +25,7 @@ SRC	     =		src/main.c							\
 				src/exec/builtins/ft_unset.c		\
 				src/lib/char.c						\
 				src/lib/command.c					\
-				src/lib/debug.c						\
 				src/lib/unset.c						\
-				src/lib/debug2.c					\
 				src/lib/redir.c						\
 				src/lib/string.c					\
 				src/lib/export.c					\

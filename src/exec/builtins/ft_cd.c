@@ -6,13 +6,13 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/17 15:11:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:07:48 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-int chdir_fail(char *str)
+int	chdir_fail(char *str)
 {
 	printf("minishell: cd: %s : No such file or directory\n", str);
 	return (1);
@@ -20,9 +20,9 @@ int chdir_fail(char *str)
 
 int	ft_cd(t_minishell *minishell, char **arg)
 {
-	char *inter;
-	char *home;
-	
+	char	*inter;
+	char	*home;
+
 	if (!arg[1])
 	{
 		if (!search_env(minishell->env, "HOME"))

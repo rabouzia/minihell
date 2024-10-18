@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:34:25 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:15:50 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:10:59 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,29 @@ char	*ft_itoa(int n)
 		nb /= 10;
 	}
 	return (ret);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putstr_fd("\n", fd);
+}
+
+size_t	ft_strlcpy(char *dst, char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size != 0)
+	{
+		while (src[i] && i < size - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = 0;
+	}
+	while (src[i])
+		i++;
+	return (i);
 }

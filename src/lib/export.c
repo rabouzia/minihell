@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:48:29 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/17 15:20:59 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:13:11 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,25 @@ void	modify_value(t_env *env, char *key, char *value)
 	free(key);
 	free(env->value);
 	env->value = value;
+}
+
+char	*get_key(char *str)
+{
+	int		i;
+	char	*key;
+
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	key = malloc(sizeof(char) * i + 1);
+	if (!key)
+		return (NULL);
+	i = 0;
+	while (str[i] != '=')
+	{
+		key[i] = str[i];
+		i++;
+	}
+	key[i] = 0;
+	return (key);
 }

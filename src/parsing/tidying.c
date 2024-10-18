@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 21:08:53 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 16:44:20 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:09:26 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ bool	handle_token(t_token **token, t_command *cmd, t_minishell *minishell)
 	else
 	{
 		if (find_redir_type((*token)->str) == HEREDOC)
-			redir = ft_redirnew(ft_strdup((*token)->next->str), find_redir_type((*token)->str), minishell);
-		else	
+			redir = ft_redirnew(ft_strdup((*token)->next->str),
+					find_redir_type((*token)->str), minishell);
+		else
 			redir = ft_redirnew(expand((*token)->next->str, minishell),
 					find_redir_type((*token)->str), minishell);
 		if (!redir)

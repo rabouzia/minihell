@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:46:32 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:15:36 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:55:25 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,6 @@ bool	add_redir_simple(char *input, int *i, t_minishell *minishell)
 	ft_tokenaddback(&(minishell->token), new);
 	(*i)++;
 	return (1);
-}
-
-int	get_len_word(char *input, int i)
-{
-	int		len;
-	char	quote;
-
-	len = 0;
-	while (input[i] && !is_not_word(input[i]))
-	{
-		if (input[i] == '"' || input[i] == '\'')
-		{
-			quote = input[i];
-			len++;
-			while (input[++i] != quote)
-			{
-				len++;
-			}
-			len++;
-		}
-		len++;
-		i++;
-	}
-	return (len);
 }
 
 void	add_between_quotes(char *str, char *input, int *j, int *i)

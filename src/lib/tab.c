@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 20:10:41 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:16:03 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:11:21 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ char	**add_argument(char **tab, char *str)
 		res[1] = 0;
 		return (res);
 	}
-	i = 0;
+	i = -1;
 	res = malloc(sizeof(char *) * (tab_len(tab) + 2));
 	if (!res)
 		return (NULL);
-	while (tab[i])
-	{
+	while (tab[++i])
 		res[i] = tab[i];
-		i++;
-	}
 	res[i] = str;
 	res[++i] = 0;
 	return (free(tab), res);

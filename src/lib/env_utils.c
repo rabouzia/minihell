@@ -6,32 +6,11 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:49:54 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/09 11:03:48 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:13:20 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-char	*get_key(char *str)
-{
-	int		i;
-	char	*key;
-
-	i = 0;
-	while (str[i] != '=')
-		i++;
-	key = malloc(sizeof(char) * i + 1);
-	if (!key)
-		return (NULL);
-	i = 0;
-	while (str[i] != '=')
-	{
-		key[i] = str[i];
-		i++;
-	}
-	key[i] = 0;
-	return (key);
-}
 
 char	*get_value(char *str)
 {
@@ -58,12 +37,12 @@ bool	ft_isalpha(char c)
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
-bool ft_isalnum(char c)
+bool	ft_isalnum(char c)
 {
 	return (ft_isalpha(c) || (c >= '0' && c <= '9'));
 }
 
-bool ft_isnum(char c)
+bool	ft_isnum(char c)
 {
 	return ((c >= '0' && c <= '9'));
 }

@@ -6,17 +6,16 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:09:27 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:36:05 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-char	*cmd_finder(char **cmd, char **env)
+char	*cmd_finder(char **cmd, char **env, char *result)
 {
 	int		i;
 	char	*tmp;
-	char	*result;
 	char	*slash;
 
 	result = NULL;
@@ -25,8 +24,8 @@ char	*cmd_finder(char **cmd, char **env)
 	slash = ft_strjoin("/", cmd[0]);
 	if (!slash)
 		return (NULL);
-	i = 0;
-	while (env[i])
+	i = -1;
+	while (env[++i])
 	{
 		tmp = ft_strjoin(env[i], slash);
 		if (!tmp)
@@ -38,7 +37,6 @@ char	*cmd_finder(char **cmd, char **env)
 				return (free(tmp), free(result), NULL);
 		}
 		free(tmp);
-		i++;
 	}
 	return (free_tab(env), free(slash), result);
 }
@@ -65,14 +63,25 @@ void	error_msg(char *path, char **cmd, t_minishell *minishell)
 	exit(127);
 }
 
+void	end_exec(char *path, char **cmd, char **env, t_minishell *minishell)
+{
+	if (!path)
+		error_msg(path, cmd, minishell);
+	free_all_heredoc(minishell->command);
+	execve(path, cmd, env);
+	error_msg(path, cmd, minishell);
+}
+
 void	excute(char **cmd, char **env, t_minishell *minishell)
 {
 	int		i;
 	char	*path;
 	char	**tmp_path;
+	char	*result;
 
 	tmp_path = NULL;
 	path = NULL;
+	result = NULL;
 	i = 0;
 	if (!cmd)
 		return ;
@@ -86,12 +95,8 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 			tmp_path = ft_split(&env[i][5], ':');
 		if (!tmp_path)
 			error_msg(path, cmd, minishell);
-		path = cmd_finder(cmd, tmp_path);
+		path = cmd_finder(cmd, tmp_path, result);
 	}
-	if (!path)
-		error_msg(path, cmd, minishell);
-	free_all_heredoc(minishell->command);
-	execve(path, cmd, env);
-	error_msg(path, cmd, minishell);
+	end_exec(path, cmd, env, minishell);
 	exit(0);
 }
