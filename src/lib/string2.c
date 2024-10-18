@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:54:33 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:16:29 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:55:04 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_strchr(char *str, char c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	p;
@@ -70,8 +70,7 @@ int	ft_atoi(const char *str)
 	i = 0;
 	p = 1;
 	n = 0;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
+	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{

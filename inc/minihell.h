@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:52 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/18 17:43:14 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:40:13 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,7 @@ void							ft_tabupdate(t_minishell *minishell);
 void							error_msg(char *path, char **cmd,
 									t_minishell *minishell);
 
-char							*cmd_finder(char **cmd, char **env,
-									char *result);
+char							*cmd_finder(char **cmd, char **env);
 
 // ############# expand  #############
 
@@ -195,6 +194,8 @@ int								get_expanded_len(char *str,
 
 // ############# lib minihell ########
 
+int								ft_isspace(char c);
+
 bool							is_env_valid(char c, bool start);
 
 char							*ft_strjoin3(char *s1, char *s2, char *s3);
@@ -209,7 +210,7 @@ size_t							ft_strlcpy(char *dst, char *src, size_t size);
 
 char							*get_key(char *str);
 
-int								ft_atoi(const char *str);
+int								ft_atoi(char *str);
 
 char							*get_value_env(char *key, t_env *env);
 

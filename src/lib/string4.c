@@ -6,11 +6,16 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:34:25 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 17:10:59 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:34:56 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
+
+int	ft_isspace(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}
 
 void	*ft_calloc(size_t n, size_t s)
 {

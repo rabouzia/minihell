@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:10:46 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/12 19:02:24 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:13:47 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,17 @@ void	ft_tokenclear(t_token **token)
 			free((*token)->str);
 		free((*token));
 		(*token) = tmp;
+	}
+}
+
+void	ft_end(t_minishell *minishell)
+{
+	ft_tokenclear(&minishell->token);
+	ft_commandclear(&minishell->command);
+	ft_envclear(&minishell->env);
+	if (minishell->envp != NULL)
+	{
+		free_tab(minishell->envp);
+		minishell->envp = NULL;
 	}
 }

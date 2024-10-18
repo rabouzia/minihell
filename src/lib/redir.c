@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:56:35 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 16:44:04 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:18:02 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_heredoc(t_redir *redir, t_minishell *minishell)
 		}
 		if (!line)
 		{
-			printf("error message\n");
+			printf("minihell: warning: heredoc delimited by end-of-file \n");
 			break ;
 		}
 		if (ft_strcmp(line, redir->file) == 0)

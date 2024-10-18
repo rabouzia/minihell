@@ -6,19 +6,18 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:04:40 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 18:24:03 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:58:57 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-char	*cmd_finder(char **cmd, char **env, char *result)
+char	*cmd_finder(char **cmd, char **env)
 {
 	int		i;
 	char	*tmp;
 	char	*slash;
 
-	result = NULL;
 	if (cmd[0][0] == '\0')
 		return (free_tab(env), NULL);
 	slash = ft_strjoin("/", cmd[0]);
@@ -31,20 +30,16 @@ char	*cmd_finder(char **cmd, char **env, char *result)
 		if (!tmp)
 			return (free(slash), NULL);
 		if (access(tmp, F_OK) == 0)
-		{
-			result = ft_strdup(tmp);
-			if (!result)
-				return (free(tmp), free(result), NULL);
-		}
+			return (free_tab(env), free(slash), tmp);
 		free(tmp);
 	}
-	return (free_tab(env), free(slash), result);
+	return (free_tab(env), free(slash), NULL);
 }
 
 void	error_msg(char *path, char **cmd, t_minishell *minishell)
 {
 	(void)minishell;
-	if ((!path || path) && ft_strchr(cmd[0], '/') != 0)
+	if (ft_strchr(cmd[0], '/') != 0)
 		ft_putstr_fd("No such file or directory : ", 2);
 	else if (!path)
 		ft_putstr_fd("command not found: ", 2);
@@ -77,17 +72,15 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 	int		i;
 	char	*path;
 	char	**tmp_path;
-	char	*result;
 
 	tmp_path = NULL;
 	path = NULL;
-	result = NULL;
 	i = 0;
 	if (!cmd)
 		return ;
-	if (access(cmd[0], F_OK) == 0)
+	if (ft_strchr(cmd[0], '/') && !access(cmd[0], F_OK | X_OK))
 		path = ft_strdup(cmd[0]);
-	else if (env[i])
+	else if (env[i] && !ft_strchr(cmd[0], '/'))
 	{
 		while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
 			i++;
@@ -95,7 +88,7 @@ void	excute(char **cmd, char **env, t_minishell *minishell)
 			tmp_path = ft_split(&env[i][5], ':');
 		if (!tmp_path)
 			error_msg(path, cmd, minishell);
-		path = cmd_finder(cmd, tmp_path, result);
+		path = cmd_finder(cmd, tmp_path);
 	}
 	end_exec(path, cmd, env, minishell);
 	exit(0);
