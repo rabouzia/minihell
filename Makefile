@@ -1,4 +1,4 @@
-NAME     =		minihell
+NAME     =		minishell
 
 DIR 	 =      src/
 
