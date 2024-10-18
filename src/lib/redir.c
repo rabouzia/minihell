@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 19:56:35 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:08:33 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:44:04 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,14 @@ t_redir	*ft_redirnew(char *str, t_redir_type type, t_minishell *minishell)
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->file = str;
 	redir->heredoc_content = NULL;
 	redir->type = type;
+	redir->file = str;
 	if (type == HEREDOC)
 	{
 		if (get_heredoc(redir, minishell) == EXIT_FAILURE)
 		{
 			free(redir);
-			free(str);
 			return (NULL);
 		}
 	}

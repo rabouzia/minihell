@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:20 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/17 18:56:50 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:38:48 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	set_signal_child(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGPIPE, SIG_IGN);
+	// signal(SIGPIPE, SIG_IGN);
 }
 
 int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
@@ -126,6 +126,7 @@ int	all_cmd(t_minishell *minishell, int save[2], t_command *cmd)
 		open_redirections(cmd, minishell);
 		if (cmd->arguments == NULL)
 		{
+			free_all_heredoc(minishell->command);
 			ft_end(minishell);
 			exit(EXIT_SUCCESS);
 		}
@@ -162,11 +163,21 @@ int	wait_for_child(t_minishell *minishell)
 	return (0);
 }
 
+void check_signal_exec(t_minishell *minishell)
+{
+	if (minishell->state == 128 + SIGINT)
+		printf("\n");
+	else if (minishell->state == 128 + SIGQUIT)
+		printf("Quit (core dumped)\n");
+}
+
 bool	exec(t_command *cmd, t_minishell *minishell)
 {
 	int	save[2];
 
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	if (!cmd->next && is_a_builtin(cmd->arguments))
 		return (builtins(minishell, cmd), 1);
 	save[STDIN_FILENO] = dup(STDIN_FILENO);
@@ -192,5 +203,6 @@ bool	exec(t_command *cmd, t_minishell *minishell)
 	dup2(save[STDIN_FILENO], STDIN_FILENO);
 	dup2(save[STDOUT_FILENO], STDOUT_FILENO);
 	(close(save[0]), close(save[1]));
+	check_signal_exec(minishell);
 	return (0);
 }

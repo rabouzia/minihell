@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:42:24 by ramzerk           #+#    #+#             */
-/*   Updated: 2024/10/17 19:04:31 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:33:48 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ int	main(int ac, char **av, char **env)
 	{
 		ft_signal();
 		minishell.token = NULL;
-		if (minishell.state == 130)
-		{
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			printf("\n");
-		}
 		input = readline("🔥$> ");
 		if (g_signal != 0)
 		{

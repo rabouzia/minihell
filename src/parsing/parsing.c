@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:14:11 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:08:23 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:39:46 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	parsing(char *input, t_minishell *minishell)
 	if (!tokenization(input, minishell))
 		return (0);
 	if (!syntax_analysis(minishell))
+	{
+		ft_tokenclear(&minishell->token);	
 		return (printf("Error : syntax error\n"), 0);
+	}
 	if (!tidying(minishell))
 	{
 		ft_tokenclear(&minishell->token);
