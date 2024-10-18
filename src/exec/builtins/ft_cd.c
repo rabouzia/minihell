@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:39:47 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/18 17:07:48 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:22:14 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ int	chdir_fail(char *str)
 	return (1);
 }
 
-int	ft_cd(t_minishell *minishell, char **arg)
+int	ft_cd(t_minishell *shell, char **arg)
 {
 	char	*inter;
 	char	*home;
 
+	shell->state = 1;
 	if (!arg[1])
 	{
-		if (!search_env(minishell->env, "HOME"))
-			return (ft_putstr_fd("minihell: cd: HOME not set\n", 2), 1);
+		if (!search_env(shell->env, "HOME"))
+			return (printf("minihell: cd: HOME not set\n"), shell->state);
 		inter = ft_strdup("$HOME");
-		home = expand(inter, minishell);
+		home = expand(inter, shell);
 		if (!home)
-			return (ft_putstr_fd("minihell: cd: malloc issue\n", 2), 1);
+			return (printf("minihell: cd: malloc issue\n"), shell->state);
 		if (chdir(home) == -1)
 		{
 			chdir_fail(home);
@@ -39,8 +40,9 @@ int	ft_cd(t_minishell *minishell, char **arg)
 		return (free(home), free(inter), 0);
 	}
 	if (arg[2])
-		return (ft_putstr_fd("minihell: cd: too many arguments\n", 2), 1);
+		return (printf("minihell: cd: too many arguments\n"), shell->state);
 	if (chdir(arg[1]) == -1)
 		return (chdir_fail(arg[1]));
-	return (0);
+	shell->state = 0;
+	return (shell->state);
 }

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:27 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:09:02 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:17:24 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_unset(t_minishell *minishell, char **arg)
 {
 	int	i;
-
+	minishell->state =0;
 	i = 1;
 	if (!arg[1])
-		return (1);
+		return (minishell->state);
 	while (arg[i])
 	{
 		if (!delete_node(&minishell->env, arg[i]))
@@ -26,7 +26,7 @@ int	ft_unset(t_minishell *minishell, char **arg)
 		else
 			i++;
 	}
-	return (1);
+	return (minishell->state);
 }
 
 bool	delete_node(t_env **env, char *to_delete)

@@ -6,7 +6,7 @@
 /*   By: rabouzia <rabouzia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:40:12 by rabouzia          #+#    #+#             */
-/*   Updated: 2024/10/16 19:17:01 by rabouzia         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:15:46 by rabouzia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int	ft_env(t_minishell *minishell, char **arg)
 {
 	(void)arg;
+	minishell->state = 0;
 	env_print(minishell->env);
-	return (1);
+	return (minishell->state);
 }
 
 void	env_print(t_env *env)
