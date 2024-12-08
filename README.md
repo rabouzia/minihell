@@ -10,3 +10,7 @@ Exec strat ⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️
 
 
 ![Screenshot from 2024-12-06 17-54-24](https://github.com/user-attachments/assets/58c1fcfe-b14c-4d3a-ba41-97072b5aca4e)
+
+
+Merci @vietdu91
+https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit?pli=1&gid=0#gid=0
